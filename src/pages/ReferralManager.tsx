@@ -108,12 +108,22 @@ const ReferralManager: React.FC = () => {
 
     try {
       setLoading(true);
-      await createReferral({
+      console.log('Tentativo di creazione referral - dati inviati:', {
         name: newReferral.name,
         code: newReferral.code,
         commission: newReferral.commission,
         active: true
       });
+      
+      // Nota: Stiamo usando Firebase Cloud, non gli emulatori
+      const result = await createReferral({
+        name: newReferral.name,
+        code: newReferral.code,
+        commission: newReferral.commission,
+        active: true
+      });
+      
+      console.log('Referral creato con successo:', result);
       
       setNewReferral({
         name: '',
@@ -122,9 +132,11 @@ const ReferralManager: React.FC = () => {
       });
       
       setSuccessMessage('Referral creato con successo');
-      loadData();
+      await loadData(); // Aspetta che i dati vengano ricaricati
+      console.log('Dati ricaricati, referrals:', referrals);
     } catch (error: any) {
-      setError(error.message || 'Errore nella creazione del referral');
+      console.error('Errore nella creazione del referral:', error);
+      setError(error.message || 'Errore nella creazione del referral - controlla la console per dettagli');
     } finally {
       setLoading(false);
     }

@@ -19,12 +19,13 @@ const firebaseConfig = {
   apiKey: "AIzaSyBQubyXE1gZNRFt7IZ2qSx7cI-xuKm49dU",
   authDomain: "bonaevents-pack.firebaseapp.com",
   projectId: "bonaevents-pack",
-  storageBucket: "bonaevents-pack.firebasestorage.app",
+  storageBucket: "bonaevents-pack.appspot.com",
   messagingSenderId: "825136605570",
   appId: "1:825136605570:web:e19320da42b8ad38fd479b"
 };
 
 // Initialize Firebase
+console.log("Inizializzazione Firebase in ambiente cloud...");
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
@@ -117,51 +118,77 @@ export const clearOrders = async () => {
 
 // Crea un nuovo codice referral
 export const createReferral = async (referralData: Omit<Referral, 'createdAt'>) => {
+  console.log('createReferral chiamata con:', referralData);
+  
+  // Verifica che il database sia inizializzato
+  if (!db) {
+    console.error('Firebase DB non inizializzato!');
+    throw new Error('Errore di connessione al database');
+  }
+  
   try {
     // Controlla se il codice esiste già
+    console.log('Verifico se il codice esiste già:', referralData.code);
     const q = query(
       collection(db, collections.REFERRALS),
       where('code', '==', referralData.code)
     );
     
     const querySnapshot = await getDocs(q);
+    console.log('Query completata, documenti trovati:', querySnapshot.size);
     
     if (!querySnapshot.empty) {
+      console.warn(`Codice referral "${referralData.code}" già esistente`);
       throw new Error(`Il codice referral "${referralData.code}" esiste già`);
     }
     
     // Crea il nuovo referral
+    console.log('Creo nuovo referral con data:', Timestamp.now());
     const referralWithDate = {
       ...referralData,
       createdAt: Timestamp.now()
     };
     
+    console.log('Aggiungo documento a Firestore:', referralWithDate);
     const docRef = await addDoc(collection(db, collections.REFERRALS), referralWithDate);
+    console.log('Documento aggiunto con ID:', docRef.id);
+    
     return { id: docRef.id, ...referralWithDate };
   } catch (error) {
-    console.error("Errore durante la creazione del referral:", error);
-    throw error;
+    console.error("Errore dettagliato durante la creazione del referral:", error);
+    if (error instanceof Error) {
+      throw error;
+    } else {
+      throw new Error('Errore sconosciuto durante la creazione del referral');
+    }
   }
 };
 
 // Ottiene tutti i referral
 export const getReferrals = async () => {
+  console.log('getReferrals chiamata');
   try {
+    console.log('Creo query per ottenere referrals');
     const q = query(
       collection(db, collections.REFERRALS),
       orderBy('createdAt', 'desc')
     );
     
+    console.log('Eseguo query su Firestore');
     const querySnapshot = await getDocs(q);
+    console.log('Query completata, documenti trovati:', querySnapshot.size);
+    
     const referrals: Referral[] = [];
     
     querySnapshot.forEach((doc) => {
+      console.log('Documento referral trovato:', doc.id, doc.data());
       referrals.push({ id: doc.id, ...doc.data() } as Referral);
     });
     
+    console.log('Referrals ottenuti:', referrals);
     return referrals;
   } catch (error) {
-    console.error("Errore durante il recupero dei referral:", error);
+    console.error("Errore dettagliato durante il recupero dei referral:", error);
     throw error;
   }
 };

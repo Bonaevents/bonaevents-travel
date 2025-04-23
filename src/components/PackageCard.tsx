@@ -6,9 +6,10 @@ import { useOrders } from '../contexts/OrderContext';
 
 interface PackageCardProps {
   packageData: TravelPackage;
+  className?: string;
 }
 
-const PackageCard: React.FC<PackageCardProps> = ({ packageData }) => {
+const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => {
   const { name, location, image, price } = packageData;
   const [showThankYou, setShowThankYou] = useState(false);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
@@ -62,7 +63,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData }) => {
 
   return (
     <>
-      <div className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
+      <div className={`group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 ${className || ''}`}>
         {/* Card Image */}
         <div className="relative overflow-hidden">
           <img

@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "cd netlify/functions && npm install",
-    "build": "vite build",
+    "prebuild": "npm install && cd netlify/functions && npm install",
+    "build": "npx vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "netlify": "netlify dev",

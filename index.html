@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="BonaEvents - Esplora pacchetti vacanza esclusivi a Saranda, Albania" />
     <meta name="google" content="notranslate" id="notranslate" />
     <meta name="google-translate-customization" content="3f88d5cbb415eb3d-facda5f7c9105964-gf46e39e7c22b2ea6-10" />
@@ -11,9 +11,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* Reset CSS di base per garantire una visualizzazione coerente */
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+      
+      /* Evita contenuti che escono dalla viewport */
+      * {
+        box-sizing: border-box;
+      }
+      
+      /* Dimensione massima per immagini e contenuti multimediali */
+      img, svg, video, canvas, audio, iframe, embed, object {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    
+    <!-- Script per il debug di Firebase (solo per sviluppo) -->
+    <script>
+      // Abilita il debug di Firebase in console su sviluppo locale
+      if (window.location.hostname === 'localhost') {
+        localStorage.setItem('debug', 'firebase:*');
+        console.log('Firebase debug abilitato');
+      }
+    </script>
+    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

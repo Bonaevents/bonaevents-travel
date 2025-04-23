@@ -47,7 +47,27 @@ export default {
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
+      screens: {
+        'xs': '440px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px'
+      },
+      maxWidth: {
+        'screen-2xl': '1536px',
+        'screen-3xl': '1920px'
+      },
+      fontSize: {
+        'xxs': '.65rem',
+        'xxxs': '.6rem'
+      }
     },
   },
   plugins: [],
+  safelist: [
+    'container', 'mx-auto', 'px-4', 'py-4', 'flex', 'flex-col', 'items-center', 'justify-center',
+    'sm:flex-row', 'md:flex-row', 'lg:flex-row'
+  ]
 };
