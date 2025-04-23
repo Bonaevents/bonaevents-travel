@@ -10,14 +10,20 @@ export const navigation: NavigationItem[] = [
 
 export const travelPackages: TravelPackage[] = [
   {
-    id: '1',
-    name: 'Pacchetto Exclusive',
-    description: 'Il massimo del lusso a Saranda. Soggiorno in hotel 5 stelle con vista panoramica sulla baia, servizio di concierge privato e accesso a spiagge esclusive. Un\'esperienza indimenticabile sulla costa albanese.',
+    id: 'estate-folle',
+    name: 'Estate Folle a Saranda',
+    description: 'Estate folle a Saranda: festa e mare no stop! Hotel sul mare con pool party, feste ogni sera, boat party con alcohol illimitato e accesso VIP a tutti gli eventi. Un esperienza indimenticabile di 5 giorni e 4 notti di pura follia ad Agosto.',
     price: 330,
     location: 'Saranda, Albania',
-    rating: 4.8,
-    image: '/pack1.jpeg',
-    features: ['7 notti in hotel di lusso', 'Pensione completa', 'Transfer privato', 'Tour esclusivi'],
+    rating: 5.0,
+    image: '/estate-folle.jpeg', // Questa immagine non verrà utilizzata, useremo il componente personalizzato
+    features: [
+      'Hotel sul mare con pool party da paura',
+      'Feste tutte le sere e boat party con alcohol illimitato',
+      '5 giorni e 4 notti di Agosto di pura follia',
+      'Sconti esclusivi su escursioni e attività',
+      'Accesso VIP a tutti gli eventi'
+    ],
   },
   {
     id: '2',

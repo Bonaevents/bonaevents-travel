@@ -3,6 +3,9 @@ import { MapPin, X } from 'lucide-react';
 import Button from './Button';
 import { TravelPackage } from '../types';
 import { useOrders } from '../contexts/OrderContext';
+import EstateFolleCard from './EstateFolleCard';
+import EstatePremiumCard from './EstatePremiumCard';
+import EstateBaseCard from './EstateBaseCard';
 
 interface PackageCardProps {
   packageData: TravelPackage;
@@ -10,7 +13,7 @@ interface PackageCardProps {
 }
 
 const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => {
-  const { name, location, image, price } = packageData;
+  const { id, name, location, image, price } = packageData;
   const [showThankYou, setShowThankYou] = useState(false);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -61,38 +64,63 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => 
     }, 2000);
   };
 
+  // Verifica quale tipo di pacchetto è
+  const isEstateFollePackage = id === 'estate-folle';
+  const isEstatePremiumPackage = id === '2'; // Pacchetto Premium a 280€
+  const isEstateBasePackage = id === '3'; // Pacchetto Base a 189€
+
   return (
     <>
       <div className={`group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 ${className || ''}`}>
-        {/* Card Image */}
-        <div className="relative overflow-hidden">
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
-          />
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 opacity-80"></div>
-          {/* Location Tag - Moved to right */}
-          <div className="absolute bottom-4 right-4 flex items-center text-white">
-            <span className="text-sm font-medium">{location}</span>
-            <MapPin className="w-4 h-4 ml-1" />
+        {isEstateFollePackage ? (
+          // Renderizza il design "Estate Folle" a 330€
+          <div className="h-full">
+            <EstateFolleCard onAcquistaClick={handleOpenCheckout} />
           </div>
-        </div>
+        ) : isEstatePremiumPackage ? (
+          // Renderizza il design "Estate Premium" a 280€
+          <div className="h-full">
+            <EstatePremiumCard onAcquistaClick={handleOpenCheckout} />
+          </div>
+        ) : isEstateBasePackage ? (
+          // Renderizza il design "Estate Base" a 189€
+          <div className="h-full">
+            <EstateBaseCard onAcquistaClick={handleOpenCheckout} />
+          </div>
+        ) : (
+          // Renderizza il design standard per gli altri pacchetti
+          <>
+            {/* Card Image */}
+            <div className="relative overflow-hidden">
+              <img
+                src={image}
+                alt={name}
+                className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
+              />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 opacity-80"></div>
+              {/* Location Tag - Moved to right */}
+              <div className="absolute bottom-4 right-4 flex items-center text-white">
+                <span className="text-sm font-medium">{location}</span>
+                <MapPin className="w-4 h-4 ml-1" />
+              </div>
+            </div>
 
-        {/* Card Content */}
-        <div className="p-6">
-          <h3 className="text-xl font-bold text-gray-800 group-hover:text-teal-600 transition-colors duration-300 mb-4 text-center">
-            {name}
-          </h3>
-          
-          {/* CTA Button */}
-          <div className="mt-6 flex justify-center">
-            <Button variant="primary" onClick={handleOpenCheckout}>
-              Acquista ora
-            </Button>
-          </div>
-        </div>
+            {/* Card Content */}
+            <div className="p-6">
+              <h3 className="text-xl font-bold text-gray-800 group-hover:text-teal-600 transition-colors duration-300 mb-4 text-center">
+                {name}
+              </h3>
+              
+              {/* CTA Button */}
+              <div className="mt-6 flex justify-center">
+                <Button variant="primary" onClick={handleOpenCheckout}>
+                  Acquista ora
+                </Button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Form di pagamento */}

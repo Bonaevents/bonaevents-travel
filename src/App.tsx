@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PackageList from './components/PackageList';
 import Footer from './components/Footer';
+import Header from './components/Header';
 import { travelPackages } from './constants/data';
 import Orders from './pages/Orders';
 import ReferralManager from './pages/ReferralManager';
@@ -72,6 +73,7 @@ function App() {
         <ReferralManager />
       ) : (
         <div className="font-['Inter',sans-serif] antialiased">
+          <Header />
           <main>
             <PackageList packages={travelPackages} />
           </main>
