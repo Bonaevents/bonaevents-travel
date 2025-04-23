@@ -9,10 +9,12 @@ export const API_BASE_URL = isDevelopment
 // Configurazione del sito
 export const SITE_URL = isDevelopment
   ? 'http://localhost:8888'
-  : 'https://bonaevents.netlify.app'; // Sostituisci con il tuo URL di produzione
+  : window.location.origin;
 
 // Altri valori di configurazione
 export const APP_NAME = 'BonaEvents';
+
+// Password per l'area admin
 export const ADMIN_PASSWORD = 'bonaevents2023';
 
 // Webhook Stripe (solo frontend)
