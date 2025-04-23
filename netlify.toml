@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "CI= npm run build"
   publish = "dist"
   functions = "netlify/functions"
 
@@ -22,6 +22,7 @@
 [build.environment]
   NODE_ENV = "production"
   NODE_VERSION = "20"
+  NPM_FLAGS = "--no-audit --no-fund"
 
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
