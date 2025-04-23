@@ -1,4 +1,4 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY || 'sk_test_51IU78vEXr2WN8c8uVt0JFR4FciCIOpjoDJMJN2coXthd4ElSOxIlZknRCyLjD320WmhlJb7D58mwdUcLAyIMmXAD0017d46zSl');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event, context) => {
   // Imposta CORS
@@ -63,7 +63,7 @@ exports.handler = async (event, context) => {
       let stripeEvent;
       
       try {
-        const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || 'whsec_your_webhook_secret';
+        const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
         stripeEvent = stripe.webhooks.constructEvent(
           event.body,
           sig,

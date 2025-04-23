@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const stripe = require('stripe')('sk_test_51IU78vEXr2WN8c8uVt0JFR4FciCIOpjoDJMJN2coXthd4ElSOxIlZknRCyLjD320WmhlJb7D58mwdUcLAyIMmXAD0017d46zSl');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -58,7 +58,7 @@ app.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, r
 
   // Verifica la firma dell'evento (in produzione dovresti usare un endpoint_secret)
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, 'whsec_your_webhook_secret');
+    event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
     console.error('Errore webhook:', err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);

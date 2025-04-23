@@ -9,6 +9,20 @@ Questo progetto è una piattaforma per la vendita di pacchetti vacanza a Saranda
 
 ## Guida Rapida
 
+### Configurazione Iniziale
+
+1. Crea un file `.env` nella radice del progetto:
+```
+# Copia da .env.example
+cp .env.example .env
+```
+
+2. Aggiungi le tue chiavi API Stripe nel file `.env`:
+```
+STRIPE_SECRET_KEY=sk_test_xxxxxxxxxxxxxxxx
+STRIPE_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxxxxx
+```
+
 ### Sviluppo Locale
 
 1. Installa le dipendenze:
@@ -45,6 +59,7 @@ Vedi il file [NETLIFY_DEPLOYMENT.md](./NETLIFY_DEPLOYMENT.md) per istruzioni det
 - Pagina di amministrazione protetta con password per visualizzare gli ordini (rotta `/ordini`)
 - Integrazione completa con Stripe per processare pagamenti reali
 - Architettura serverless per facile deployment e scalabilità
+- Sistema di referral per tracking delle conversioni
 
 ## Pagamenti di Test
 
@@ -60,6 +75,13 @@ Usa una data di scadenza futura qualsiasi e un CVC a 3 cifre.
 
 URL: `/ordini`
 Password: `bonaevents2023`
+
+## Sistema di Referral
+
+URL: `/referral`
+Password: `bonaevents2023`
+
+Vedi il file [REFERRAL_SYSTEM.md](./REFERRAL_SYSTEM.md) per ulteriori dettagli sul sistema di referral.
 
 ## Passare alla Produzione
 

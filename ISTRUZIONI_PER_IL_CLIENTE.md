@@ -40,8 +40,8 @@ Se hai il codice su GitHub o altro servizio Git:
 1. Nella dashboard di Netlify, vai al sito appena creato e clicca "Site settings"
 2. Nella sezione "Build & deploy", clicca "Environment variables"
 3. Aggiungi le seguenti variabili d'ambiente:
-   - Chiave: `STRIPE_SECRET_KEY`, Valore: `sk_test_51IU78vEXr2WN8c8uVt0JFR4FciCIOpjoDJMJN2coXthd4ElSOxIlZknRCyLjD320WmhlJb7D58mwdUcLAyIMmXAD0017d46zSl`
-   - Chiave: `STRIPE_WEBHOOK_SECRET`, Valore: `whsec_your_webhook_secret` (opzionale in fase di test)
+   - Chiave: `STRIPE_SECRET_KEY`, Valore: La tua chiave segreta di Stripe che trovi nel dashboard di Stripe (Developers > API keys)
+   - Chiave: `STRIPE_WEBHOOK_SECRET`, Valore: Il secret del webhook Stripe (opzionale in fase di test)
 
 4. Torna alla dashboard del sito e clicca "Deploys", poi clicca "Trigger deploy" > "Deploy site"
 
