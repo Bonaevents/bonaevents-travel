@@ -26,6 +26,16 @@ export const travelPackages: TravelPackage[] = [
     ],
   },
   {
+    id: 'test-package',
+    name: 'Pacchetto Test (1€)',
+    description: 'Pacchetto di test a solo 1 euro per provare il sistema di pagamento. Perfetto per verificare il funzionamento del gateway Stripe con pagamenti reali.',
+    price: 1,
+    location: 'Online',
+    rating: 5.0,
+    image: '/pack2.jpeg',
+    features: ['Test di pagamento', 'Solo 1 euro', 'Nessuna consegna reale', 'Conferma via email'],
+  },
+  {
     id: '2',
     name: 'Pacchetto Premium',
     description: 'Scopri il perfetto equilibrio tra comfort e avventura. Esplora le meraviglie di Saranda con tour guidati, degustazioni della cucina locale e relax sulle splendide spiagge della Riviera Albanese.',
