@@ -1,15 +1,12 @@
 // Configurazione dell'ambiente
-const isDevelopment = process.env.NODE_ENV === 'development';
+// Forziamo production per assicurarci che in deployment usi gli URL corretti
+const isDevelopment = false; // process.env.NODE_ENV === 'development';
 
 // Configurazione dell'API
-export const API_BASE_URL = isDevelopment 
-  ? 'http://localhost:8888/api' 
-  : '/api';
+export const API_BASE_URL = '/api';
 
 // Configurazione del sito
-export const SITE_URL = isDevelopment
-  ? 'http://localhost:8888'
-  : window.location.origin;
+export const SITE_URL = window.location.origin;
 
 // Altri valori di configurazione
 export const APP_NAME = 'BonaEvents';

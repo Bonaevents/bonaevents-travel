@@ -39,6 +39,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
 
     try {
       // 1. Crea un PaymentIntent tramite la funzione Netlify
+      console.log('Invio richiesta a:', `${API_BASE_URL}/create`);
+      
       const response = await fetch(`${API_BASE_URL}/create`, {
         method: 'POST',
         headers: {
@@ -51,8 +53,12 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
         }),
       });
 
+      console.log('Risposta ricevuta, status:', response.status);
+
       if (!response.ok) {
-        throw new Error('Errore nella creazione del pagamento');
+        const errorText = await response.text();
+        console.error('Errore API:', response.status, errorText);
+        throw new Error(`Errore nella creazione del pagamento (${response.status}): ${errorText || 'Nessun dettaglio'}`);
       }
 
       const { clientSecret, id } = await response.json();
@@ -106,7 +112,16 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
       }
     } catch (err: any) {
       console.error('Errore di pagamento:', err);
-      setError(err.message || 'Si è verificato un errore durante il pagamento.');
+      
+      // Messaggi di errore più chiari per l'utente
+      let errorMessage = err.message || 'Si è verificato un errore durante il pagamento.';
+      
+      // Controllo se è un errore di connessione
+      if (errorMessage.includes('Failed to fetch')) {
+        errorMessage = 'Impossibile connettersi al server di pagamento. Controlla la tua connessione internet e riprova.';
+      }
+      
+      setError(errorMessage);
       
       // Salviamo l'ordine fallito
       addOrder({

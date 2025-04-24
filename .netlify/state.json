@@ -1,7 +1,7 @@
 {
 	"geolocation": {
 		"data": {
-			"city": "Prato",
+			"city": "Altopascio",
 			"country": {
 				"code": "IT",
 				"name": "Italy"
@@ -11,10 +11,10 @@
 				"name": "Tuscany"
 			},
 			"timezone": "Europe/Rome",
-			"latitude": 43.8828,
-			"longitude": 11.1008,
-			"postalCode": "59100"
+			"latitude": 43.8141,
+			"longitude": 10.672,
+			"postalCode": "55011"
 		},
-		"timestamp": 1745415604864
+		"timestamp": 1745514870225
 	}
 }

@@ -1,6 +1,13 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event, context) => {
+  // Log dettagliato dell'evento per debug
+  console.log(`Richiesta ricevuta: ${event.httpMethod} ${event.path}`);
+  console.log(`Query string: ${JSON.stringify(event.queryStringParameters)}`);
+  console.log(`Path parameters: ${JSON.stringify(event.pathParameters)}`);
+  console.log(`Corpo richiesta: ${event.body}`);
+  console.log(`Chiave Stripe configurata: ${!!process.env.STRIPE_SECRET_KEY}`);
+  
   // Imposta CORS
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -10,6 +17,7 @@ exports.handler = async (event, context) => {
 
   // Gestisce le richieste OPTIONS (pre-flight)
   if (event.httpMethod === 'OPTIONS') {
+    console.log('Gestione richiesta OPTIONS');
     return { 
       statusCode: 200, 
       headers, 
@@ -17,13 +25,51 @@ exports.handler = async (event, context) => {
     };
   }
 
-  // Estrai il percorso dalla URL
-  const path = event.path.replace('/.netlify/functions/payment', '');
+  // Estrai il percorso dalla URL - correggo la gestione dei percorsi
+  let path = event.path;
+  
+  // Rimuove il prefisso /.netlify/functions/payment se presente
+  if (path.includes('/.netlify/functions/payment')) {
+    path = path.split('/.netlify/functions/payment')[1] || '';
+  } 
+  // Gestisce anche richieste dirette da /api/
+  else if (path.includes('/api/')) {
+    path = path.replace('/api', '');
+  }
+  
+  // Assicura che il percorso inizi con /
+  if (!path.startsWith('/')) {
+    path = '/' + path;
+  }
+  
+  console.log(`Percorso normalizzato: ${path}`);
   
   try {
     // ----- ROTTA DI CREAZIONE PAGAMENTO -----
-    if (event.httpMethod === 'POST' && path === '/create') {
+    if (event.httpMethod === 'POST' && (path === '/create' || path === '')) {
+      console.log('Creazione payment intent');
+      
+      // Assicurati che il corpo della richiesta sia valido
+      if (!event.body) {
+        console.error('Corpo della richiesta mancante');
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ error: 'Corpo della richiesta mancante' })
+        };
+      }
+      
       const { amount, currency = 'eur', description, email } = JSON.parse(event.body);
+      console.log(`Dati ricevuti: amount=${amount}, currency=${currency}, email=${email}`);
+      
+      if (!amount) {
+        console.error('Amount è richiesto');
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ error: 'Amount è richiesto' })
+        };
+      }
       
       const paymentIntent = await stripe.paymentIntents.create({
         amount: Math.round(amount * 100), // Stripe usa i centesimi
@@ -35,6 +81,7 @@ exports.handler = async (event, context) => {
         }
       });
       
+      console.log(`PaymentIntent creato: ${paymentIntent.id}`);
       return {
         statusCode: 200,
         headers,
@@ -101,19 +148,33 @@ exports.handler = async (event, context) => {
     }
     
     // ----- ROTTA VERIFICA SALUTE API -----
-    if (event.httpMethod === 'GET' && path === '/health') {
+    if (event.httpMethod === 'GET' && (path === '/health' || path === '')) {
+      console.log('Verifica salute API');
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({ status: 'ok', timestamp: new Date() })
+        body: JSON.stringify({ 
+          status: 'ok', 
+          timestamp: new Date(),
+          path: event.path,
+          httpMethod: event.httpMethod,
+          stripeConfigured: !!process.env.STRIPE_SECRET_KEY,
+          stripeKeyLength: process.env.STRIPE_SECRET_KEY ? process.env.STRIPE_SECRET_KEY.length : 0,
+          webhookConfigured: !!process.env.STRIPE_WEBHOOK_SECRET
+        })
       };
     }
     
     // ----- ROTTA NON TROVATA -----
+    console.log(`Rotta non trovata: ${event.httpMethod} ${path}`);
     return {
       statusCode: 404,
       headers,
-      body: JSON.stringify({ error: 'Rotta non trovata' })
+      body: JSON.stringify({ 
+        error: 'Rotta non trovata',
+        path: path,
+        method: event.httpMethod
+      })
     };
     
   } catch (error) {
@@ -121,7 +182,10 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ 
+        error: error.message,
+        stack: error.stack
+      })
     };
   }
 }; 

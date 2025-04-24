@@ -1,0 +1,9 @@
+{
+  "name": "netlify-functions",
+  "version": "1.0.0",
+  "description": "Funzioni serverless per BonaEvents",
+  "main": "payment.js",
+  "dependencies": {
+    "stripe": "^12.0.0"
+  }
+} 

@@ -3,15 +3,37 @@
   publish = "dist"
   functions = "netlify/functions"
 
+# Redirezione principale per le API
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/payment/:splat"
   status = 200
+  force = true
+
+# Redirects specifici per endpoint comuni
+[[redirects]]
+  from = "/api/create"
+  to = "/.netlify/functions/payment/create"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/status/*"
+  to = "/.netlify/functions/payment/status/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/payment/health"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/webhook"
   to = "/.netlify/functions/payment/webhook"
   status = 200
+  force = true
 
 # Redirect per SPA: tutte le route non trovate vanno a index.html
 [[redirects]]
@@ -28,8 +50,8 @@
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
 
-# Header per consentire l'uso di Google Translate e Firebase
+# Header per consentire l'uso di Google Translate, Firebase e Stripe
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' translate.google.com translate.googleapis.com *.stripe.com; style-src 'self' 'unsafe-inline' translate.googleapis.com fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: translate.google.com translate.googleapis.com; connect-src 'self' translate.googleapis.com *.firebaseio.com firestore.googleapis.com *.googleapis.com *.stripe.com; frame-src translate.google.com *.stripe.com" 
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' translate.google.com translate.googleapis.com *.stripe.com; style-src 'self' 'unsafe-inline' translate.googleapis.com fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: translate.google.com translate.googleapis.com; connect-src 'self' translate.googleapis.com *.firebaseio.com firestore.googleapis.com *.googleapis.com *.stripe.com api.stripe.com; frame-src translate.google.com *.stripe.com" 
