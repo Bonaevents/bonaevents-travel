@@ -26,16 +26,6 @@ export const travelPackages: TravelPackage[] = [
     ],
   },
   {
-    id: 'test-package',
-    name: 'Pacchetto Test (1€)',
-    description: 'Pacchetto di test a solo 1 euro per provare il sistema di pagamento. Perfetto per verificare il funzionamento del gateway Stripe con pagamenti reali.',
-    price: 1,
-    location: 'Online',
-    rating: 5.0,
-    image: '/pack2.jpeg',
-    features: ['Test di pagamento', 'Solo 1 euro', 'Nessuna consegna reale', 'Conferma via email'],
-  },
-  {
     id: '2',
     name: 'Pacchetto Premium',
     description: 'Scopri il perfetto equilibrio tra comfort e avventura. Esplora le meraviglie di Saranda con tour guidati, degustazioni della cucina locale e relax sulle splendide spiagge della Riviera Albanese.',
@@ -47,12 +37,12 @@ export const travelPackages: TravelPackage[] = [
   },
   {
     id: '3',
-    name: 'Pacchetto Base',
-    description: 'La soluzione ideale per esplorare Saranda con budget contenuto. Alloggio confortevole, posizione strategica e la libertà di organizzare le tue giornate come preferisci nella perla dell\'Albania.',
-    price: 189,
+    name: 'Pacchetto Base (Test - 1€)',
+    description: 'PACCHETTO DI TEST: Prova il nostro sistema di pagamento con solo 1€. Questo è un pacchetto di test per verificare l\'elaborazione dei pagamenti.',
+    price: 1,
     location: 'Saranda, Albania',
     rating: 4.7,
     image: '/pack3.jpeg',
-    features: ['5 notti in hotel 3 stelle', 'Prima colazione', 'Guida turistica', 'Assistenza 24/7'],
+    features: ['Test del sistema di pagamento', 'Solo 1€', 'Nessun servizio reale incluso', 'Solo per test'],
   },
 ];

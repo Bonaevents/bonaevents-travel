@@ -178,9 +178,6 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
               }}
             />
           </div>
-          <p className="mt-2 text-sm text-gray-500">
-            Per test: usa il numero 4242 4242 4242 4242, una data futura e un CVC qualsiasi
-          </p>
         </div>
         
         {error && (

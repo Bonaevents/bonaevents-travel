@@ -6,7 +6,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-xl">
         <div className="flex justify-center">
           <img 
-            src="/logo-hero.png" 
+            src="/logohero.png" 
             alt="BonaEvents Logo" 
             className="h-20 sm:h-24 md:h-28 max-w-full object-contain"
           />
