@@ -42,6 +42,8 @@ export interface Order {
   packageName: string;
   price: number;
   customerEmail: string;
+  customerPhone?: string;
+  customerName?: string;
   status: 'completed' | 'processing' | 'failed';
   date: Timestamp | Date;
   referralCode?: string;

@@ -60,9 +60,9 @@ exports.handler = async (event, context) => {
       }
       
       const { amount, currency = 'eur', description, email } = JSON.parse(event.body);
-      console.log(`Dati ricevuti: amount=${amount}, currency=${currency}, email=${email}`);
+      console.log(`Dati ricevuti: amount=${amount}, currency=${currency}, email=${email}, description=${description}`);
       
-      if (!amount) {
+      if (amount === undefined) {
         console.error('Amount è richiesto');
         return {
           statusCode: 400,
@@ -70,38 +70,98 @@ exports.handler = async (event, context) => {
           body: JSON.stringify({ error: 'Amount è richiesto' })
         };
       }
-      
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: Math.round(amount * 100), // Stripe usa i centesimi
-        currency,
-        description,
-        receipt_email: email,
-        metadata: {
-          packageName: description
-        }
-      });
-      
-      console.log(`PaymentIntent creato: ${paymentIntent.id}`);
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({ 
-          clientSecret: paymentIntent.client_secret,
-          id: paymentIntent.id
-        })
-      };
+
+      // Gestione speciale per importi zero (pacchetti gratuiti)
+      if (amount === 0) {
+        console.log('Importo zero rilevato: creazione di un PaymentIntent simulato per pacchetto gratuito');
+        
+        // Per importi zero, non creiamo un vero PaymentIntent ma restituiamo una risposta che simula un pagamento completato
+        const fakePaymentIntentId = `free_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+        
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ 
+            clientSecret: 'free_transaction',
+            id: fakePaymentIntentId,
+            status: 'succeeded', // Consideriamo la transazione già avvenuta con successo
+            isFreeTransaction: true
+          })
+        };
+      }
+
+      try {
+        const paymentIntent = await stripe.paymentIntents.create({
+          amount: Math.round(amount * 100), // Stripe usa i centesimi
+          currency,
+          description,
+          receipt_email: email,
+          metadata: {
+            packageName: description
+          }
+        });
+        
+        console.log(`PaymentIntent creato con successo: ${paymentIntent.id}`);
+        console.log(`Stato PaymentIntent: ${paymentIntent.status}`);
+        console.log(`Cliente: ${email}`);
+        console.log(`Importo: ${amount} ${currency}`);
+        
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ 
+            clientSecret: paymentIntent.client_secret,
+            id: paymentIntent.id
+          })
+        };
+      } catch (stripeError) {
+        console.error('Errore creazione Stripe PaymentIntent:', stripeError);
+        return {
+          statusCode: 500,
+          headers,
+          body: JSON.stringify({ 
+            error: 'Errore durante la creazione del pagamento',
+            details: stripeError.message
+          })
+        };
+      }
     }
     
     // ----- ROTTA VERIFICA STATO PAGAMENTO -----
     if (event.httpMethod === 'GET' && path.startsWith('/status/')) {
       const id = path.split('/status/')[1];
-      const paymentIntent = await stripe.paymentIntents.retrieve(id);
+      console.log(`Verifica stato pagamento: ${id}`);
       
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({ status: paymentIntent.status })
-      };
+      // Gestione speciale per ID che iniziano con 'free_' (transazioni gratuite)
+      if (id.startsWith('free_')) {
+        console.log(`ID transazione gratuita: ${id}, restituisco stato 'succeeded'`);
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ status: 'succeeded' })
+        };
+      }
+      
+      try {
+        const paymentIntent = await stripe.paymentIntents.retrieve(id);
+        console.log(`Stato PaymentIntent ${id}: ${paymentIntent.status}`);
+        
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ status: paymentIntent.status })
+        };
+      } catch (stripeError) {
+        console.error(`Errore recupero PaymentIntent ${id}:`, stripeError);
+        return {
+          statusCode: 404,
+          headers,
+          body: JSON.stringify({ 
+            error: 'PaymentIntent non trovato',
+            details: stripeError.message
+          })
+        };
+      }
     }
     
     // ----- ROTTA WEBHOOK -----

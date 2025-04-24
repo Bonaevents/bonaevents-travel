@@ -495,60 +495,74 @@ const ReferralManager: React.FC = () => {
                     </div>
                   </div>
                   
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Data
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Cliente
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Pacchetto
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Prezzo
-                        </th>
-                        <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Stato
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {referralOrders.map((order) => (
-                        <tr key={order.id} className="hover:bg-gray-50">
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                            {formatDate(order.date)}
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
-                            {order.customerEmail}
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
-                            {order.packageName}
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 font-medium">
-                            {formatCurrency(order.price)}
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap">
-                            <span className={`inline-flex px-2 py-1 text-xs rounded-full ${
-                              order.status === 'completed' 
-                                ? 'bg-green-100 text-green-800' 
-                                : order.status === 'processing' 
-                                  ? 'bg-yellow-100 text-yellow-800' 
-                                  : 'bg-red-100 text-red-800'
-                            }`}>
-                              {order.status === 'completed' 
-                                ? 'Completato' 
-                                : order.status === 'processing' 
-                                  ? 'In elaborazione' 
-                                  : 'Fallito'}
-                            </span>
-                          </td>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200 mt-4">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Data
+                          </th>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Pacchetto
+                          </th>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Cliente
+                          </th>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Telefono
+                          </th>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Email
+                          </th>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Prezzo
+                          </th>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Stato
+                          </th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {referralOrders.map((order) => (
+                          <tr key={order.id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {formatDate(order.date)}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                              {order.packageName}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                              {order.customerName || 'Non fornito'}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                              {order.customerPhone || 'Non fornito'}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                              {order.customerEmail}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                              {formatCurrency(order.price)}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span className={`inline-flex px-2 py-1 text-xs rounded-full ${
+                                order.status === 'completed' 
+                                  ? 'bg-green-100 text-green-800' 
+                                  : order.status === 'processing' 
+                                    ? 'bg-yellow-100 text-yellow-800' 
+                                    : 'bg-red-100 text-red-800'
+                              }`}>
+                                {order.status === 'completed' 
+                                  ? 'Completato' 
+                                  : order.status === 'processing' 
+                                    ? 'In elaborazione' 
+                                    : 'Fallito'}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </>
               )}
             </div>

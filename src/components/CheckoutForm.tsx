@@ -3,6 +3,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import Button from './Button';
 import { useOrders } from '../contexts/OrderContext';
 import { API_BASE_URL } from '../libs/config';
+import { sendOrderConfirmationEmail } from '../libs/emailService';
 
 interface CheckoutFormProps {
   amount: number;
@@ -18,6 +19,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
   const [processing, setProcessing] = useState(false);
   const [email, setEmail] = useState('');
   const [cardName, setCardName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [customerName, setCustomerName] = useState('');
   const { addOrder } = useOrders();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -61,9 +64,35 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
         throw new Error(`Errore nella creazione del pagamento (${response.status}): ${errorText || 'Nessun dettaglio'}`);
       }
 
-      const { clientSecret, id } = await response.json();
+      const { clientSecret, id, isFreeTransaction, status } = await response.json();
 
-      // 2. Conferma il pagamento con Stripe.js
+      // Gestione speciale per transazioni gratuite (amount = 0)
+      if (isFreeTransaction && status === 'succeeded') {
+        console.log('Transazione gratuita rilevata, salto la conferma del pagamento');
+        
+        // Salviamo l'ordine completato
+        addOrder({
+          packageName,
+          price: amount,
+          customerEmail: email,
+          customerPhone,
+          customerName,
+          status: 'completed'
+        });
+        
+        // Invia email di conferma
+        try {
+          await sendOrderConfirmationEmail(email, packageName, amount, customerPhone, customerName);
+          console.log('Email di conferma inviata con successo');
+        } catch (emailError) {
+          console.error('Errore nell\'invio dell\'email di conferma:', emailError);
+        }
+        
+        onSuccess();
+        return;
+      }
+
+      // 2. Conferma il pagamento con Stripe.js (solo per transazioni non gratuite)
       const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: cardElement,
@@ -83,6 +112,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
           packageName,
           price: amount,
           customerEmail: email,
+          customerPhone,
+          customerName,
           status: 'failed'
         });
       } else {
@@ -96,8 +127,21 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
             packageName,
             price: amount,
             customerEmail: email,
+            customerPhone,
+            customerName,
             status: 'completed'
           });
+          
+          // Invia email di conferma
+          try {
+            await sendOrderConfirmationEmail(email, packageName, amount, customerPhone, customerName);
+            console.log('Email di conferma inviata con successo');
+          } catch (emailError) {
+            console.error('Errore nell\'invio dell\'email di conferma:', emailError);
+            // Non mostriamo l'errore all'utente se l'email non viene inviata
+            // Il pagamento è comunque andato a buon fine
+          }
+          
           onSuccess();
         } else {
           // Pagamento in sospeso
@@ -105,6 +149,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
             packageName,
             price: amount,
             customerEmail: email,
+            customerPhone,
+            customerName,
             status: 'processing'
           });
           setError('Il pagamento è in elaborazione. Riceverai una conferma via email.');
@@ -128,6 +174,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
         packageName,
         price: amount,
         customerEmail: email,
+        customerPhone,
+        customerName,
         status: 'failed'
       });
     } finally {
@@ -142,6 +190,21 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
       
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
+          <label htmlFor="customerName" className="block text-sm font-medium text-gray-700 mb-2">
+            Nome e Cognome
+          </label>
+          <input
+            type="text"
+            id="customerName"
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500"
+            placeholder="Inserisci il tuo nome completo"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
             Email
           </label>
@@ -152,6 +215,21 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500"
             placeholder="La tua email"
+            required
+          />
+        </div>
+        
+        <div className="mb-4">
+          <label htmlFor="customerPhone" className="block text-sm font-medium text-gray-700 mb-2">
+            Numero di Telefono
+          </label>
+          <input
+            type="tel"
+            id="customerPhone"
+            value={customerPhone}
+            onChange={(e) => setCustomerPhone(e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500"
+            placeholder="Inserisci il tuo numero di telefono"
             required
           />
         </div>
