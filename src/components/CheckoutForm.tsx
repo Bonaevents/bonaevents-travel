@@ -170,14 +170,23 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
                     '::placeholder': {
                       color: '#aab7c4',
                     },
+                    iconColor: '#c4f0ff',
+                    ':-webkit-autofill': {
+                      color: '#fce883',
+                    },
                   },
                   invalid: {
                     color: '#9e2146',
+                    iconColor: '#ff7784',
                   },
                 },
+                hidePostalCode: true
               }}
             />
           </div>
+          <p className="mt-2 text-sm text-gray-500">
+            Inserisci i dati della tua carta. I pagamenti sono elaborati in modo sicuro tramite Stripe.
+          </p>
         </div>
         
         {error && (
