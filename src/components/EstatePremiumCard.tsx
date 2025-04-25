@@ -28,7 +28,7 @@ const EstatePremiumCard: React.FC<EstatePremiumCardProps> = ({ className, onAcqu
         
         {/* Titolo principale */}
         <div className="text-center mb-4">
-          <h1 className="text-4xl sm:text-5xl font-bold text-sky-500 font-script tracking-wide transform -rotate-2">Estate Premium</h1>
+          <h1 className="text-4xl sm:text-5xl font-bold text-sky-500 font-script tracking-wide transform -rotate-2">Estate Folle</h1>
           <p className="text-base sm:text-lg font-bold uppercase tracking-widest mt-1">FESTA E MARE NO STOP!</p>
         </div>
         
@@ -42,15 +42,23 @@ const EstatePremiumCard: React.FC<EstatePremiumCardProps> = ({ className, onAcqu
           </button>
         </div>
         
+        {/* Offerta valida testo */}
+        <div className="text-center mb-3">
+          <p className="font-bold text-base">Offerta valida per le prime 50 persone!</p>
+        </div>
+        
         {/* Lista caratteristiche */}
         <div className="space-y-2 mb-4">
-          <FeatureItem text="10 notti in hotel 4 stelle con vista mare" />
-          <FeatureItem text="Prima colazione inclusa tutti i giorni" />
-          <FeatureItem text="Cocktail di benvenuto e cena speciale" />
-          <FeatureItem text="Tour culturali inclusi alla scoperta dell'Albania" />
-          <FeatureItem text="Attività acquatiche e sportive incluse" />
-          <FeatureItem text="Sconti in tutte le migliori discoteche" />
-          <FeatureItem text="OPZIONE BUS DALLA TUA CITTA E TRAGHETTO ANDATA E RITORNO AGGIUNGENDO SOLI 180€" smallText />
+          <FeatureItem text="5 giorni di Luglio di pura emozione e follia" />
+          <FeatureItem text="Hotel sul mare con festa in piscina da paura" />
+          <FeatureItem text="Feste tutte le sere; incluso boat party con alcohol illimitato" />
+          <FeatureItem text="Accesso VIP a tutti i nostri eventi" />
+          <FeatureItem text="Sconti esclusivi su escursioni, beach club, ristoranti e attività" />
+        </div>
+        
+        {/* Opzione bus - in grassetto e senza spunta */}
+        <div className="mb-4 text-center">
+          <p className="font-bold text-sm">OPZIONE BUS DALLA TUA CITTA E TRAGHETTO ANDATA E RITORNO AGGIUNGENDO 200€</p>
         </div>
         
         {/* Footer con prezzo e social */}
@@ -78,7 +86,7 @@ const EstatePremiumCard: React.FC<EstatePremiumCardProps> = ({ className, onAcqu
           <div className="bg-sky-500 text-white rounded-full p-3 sm:p-4 shadow-lg transform rotate-3">
             <div className="text-center">
               <div className="text-xs font-semibold">A SOLI</div>
-              <div className="text-xl sm:text-3xl font-bold">280€</div>
+              <div className="text-xl sm:text-3xl font-bold">279€</div>
             </div>
           </div>
         </div>

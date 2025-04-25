@@ -62,27 +62,27 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => 
         ) : (
           // Renderizza il design standard per gli altri pacchetti
           <>
-            {/* Card Image */}
+      {/* Card Image */}
             <div className="relative overflow-hidden">
-              <img
-                src={image}
-                alt={name}
+        <img
+          src={image}
+          alt={name}
                 className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
-              />
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 opacity-80"></div>
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 opacity-80"></div>
               {/* Location Tag - Moved to right */}
               <div className="absolute bottom-4 right-4 flex items-center text-white">
-                <span className="text-sm font-medium">{location}</span>
+          <span className="text-sm font-medium">{location}</span>
                 <MapPin className="w-4 h-4 ml-1" />
-              </div>
-            </div>
+        </div>
+      </div>
 
-            {/* Card Content */}
-            <div className="p-6">
+      {/* Card Content */}
+      <div className="p-6">
               <h3 className="text-xl font-bold text-gray-800 group-hover:text-teal-600 transition-colors duration-300 mb-4 text-center">
-                {name}
-              </h3>
+            {name}
+          </h3>
               
               {/* CTA Button */}
               <div className="mt-6 flex justify-center">
@@ -93,15 +93,15 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => 
             </div>
           </>
         )}
-      </div>
-
+        </div>
+        
       {/* Modal di pagamento con Stripe */}
       <CheckoutModal
         isOpen={showCheckoutModal}
         onClose={handleCloseCheckout}
         packageData={{ name, price }}
       />
-
+        
       {/* Message di conferma */}
       {showThankYou && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
@@ -110,7 +110,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => 
               <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-            </div>
+        </div>
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Grazie per il tuo acquisto!</h2>
             <p className="text-gray-600 mb-4">
               Ti abbiamo inviato un'email con i dettagli del tuo pacchetto.

@@ -42,15 +42,23 @@ const EstateFolleCard: React.FC<EstateFolleCardProps> = ({ className, onAcquista
           </button>
         </div>
         
+        {/* Offerta valida testo */}
+        <div className="text-center mb-3">
+          <p className="font-bold text-base">Offerta valida per le prime 50 persone!</p>
+        </div>
+        
         {/* Lista caratteristiche */}
         <div className="space-y-2 mb-4">
-          <FeatureItem text="Hotel sul mare con pool party da paura" />
-          <FeatureItem text="Feste tutte le sere; incluso boat party con alcohol illimitato." />
-          <FeatureItem text="5 giorni e 4 notti di Agosto di pura follia" />
-          <FeatureItem text="Sconti esclusivi su escursioni, beach club, ristoranti e attività" />
+          <FeatureItem text="5 giorni di Agosto di pura emozione e follia" />
+          <FeatureItem text="Hotel sul mare con festa in piscina da paura" />
+          <FeatureItem text="Feste tutte le sere; incluso boat party con alcohol illimitato" />
           <FeatureItem text="Accesso VIP a tutti i nostri eventi" />
-          <FeatureItem text="Offerta valida per le prime 50 persone!" />
-          <FeatureItem text="OPZIONE BUS DALLA TUA CITTA E TRAGHETTO ANDATA E RITORNO AGGIUNGENDO SOLI 200€" smallText />
+          <FeatureItem text="Sconti esclusivi su escursioni, beach club, ristoranti e attività" />
+        </div>
+        
+        {/* Opzione bus - in grassetto e senza spunta */}
+        <div className="mb-4 text-center">
+          <p className="font-bold text-sm">OPZIONE BUS DALLA TUA CITTA E TRAGHETTO ANDATA E RITORNO AGGIUNGENDO 200€</p>
         </div>
         
         {/* Footer con prezzo e social */}
@@ -78,7 +86,7 @@ const EstateFolleCard: React.FC<EstateFolleCardProps> = ({ className, onAcquista
           <div className="bg-sky-500 text-white rounded-full p-3 sm:p-4 shadow-lg transform rotate-3">
             <div className="text-center">
               <div className="text-xs font-semibold">A SOLI</div>
-              <div className="text-xl sm:text-3xl font-bold">330€</div>
+              <div className="text-xl sm:text-3xl font-bold">329€</div>
             </div>
           </div>
         </div>

@@ -12,37 +12,50 @@ export const travelPackages: TravelPackage[] = [
   {
     id: 'estate-folle',
     name: 'Estate Folle a Saranda',
-    description: 'Estate folle a Saranda: festa e mare no stop! Hotel sul mare con pool party, feste ogni sera, boat party con alcohol illimitato e accesso VIP a tutti gli eventi. Un esperienza indimenticabile di 5 giorni e 4 notti di pura follia ad Agosto.',
-    price: 330,
+    description: 'Estate folle a Saranda: festa e mare no stop! Hotel sul mare con pool party, feste ogni sera, boat party con alcohol illimitato e accesso VIP a tutti gli eventi. Un\'esperienza indimenticabile di 5 giorni di pura emozione e follia ad Agosto.',
+    price: 329,
     location: 'Saranda, Albania',
     rating: 5.0,
     image: '/estate-folle.jpeg', // Questa immagine non verrà utilizzata, useremo il componente personalizzato
     features: [
-      'Hotel sul mare con pool party da paura',
-      'Feste tutte le sere e boat party con alcohol illimitato',
-      '5 giorni e 4 notti di Agosto di pura follia',
-      'Sconti esclusivi su escursioni e attività',
-      'Accesso VIP a tutti gli eventi'
+      '5 giorni di Agosto di pura emozione e follia',
+      'Hotel sul mare con festa in piscina da paura',
+      'Feste tutte le sere; incluso boat party con alcohol illimitato',
+      'Accesso VIP a tutti i nostri eventi',
+      'Sconti esclusivi su escursioni, beach club, ristoranti e attività'
     ],
   },
   {
     id: '2',
-    name: 'Pacchetto Premium',
-    description: 'Scopri il perfetto equilibrio tra comfort e avventura. Esplora le meraviglie di Saranda con tour guidati, degustazioni della cucina locale e relax sulle splendide spiagge della Riviera Albanese.',
-    price: 280,
+    name: 'Estate Folle a Saranda',
+    description: 'Estate folle a Saranda: festa e mare no stop! Hotel sul mare con pool party, feste ogni sera, boat party con alcohol illimitato e accesso VIP a tutti gli eventi. Un\'esperienza indimenticabile di 5 giorni di pura emozione e follia a Luglio.',
+    price: 279,
     location: 'Saranda, Albania',
     rating: 4.9,
     image: '/pack2.jpeg',
-    features: ['10 notti in hotel 4 stelle', 'Prima colazione', 'Tour culturali', 'Attività acquatiche'],
+    features: [
+      '5 giorni di Luglio di pura emozione e follia',
+      'Hotel sul mare con festa in piscina da paura',
+      'Feste tutte le sere; incluso boat party con alcohol illimitato',
+      'Accesso VIP a tutti i nostri eventi',
+      'Sconti esclusivi su escursioni, beach club, ristoranti e attività'
+    ],
   },
   {
     id: '3',
-    name: 'Pacchetto Base (Test - 1€)',
-    description: 'PACCHETTO DI TEST: Prova il nostro sistema di pagamento con solo 1€. Questo è un pacchetto di test per verificare l\'elaborazione dei pagamenti.',
-    price: 1,
+    name: 'Estate Folle a Saranda',
+    description: 'Estate folle a Saranda: festa e mare no stop! Hotel sul mare con pool party, feste ogni sera, boat party con alcohol illimitato e accesso VIP a tutti gli eventi. Un\'esperienza indimenticabile di 4 giorni di pura emozione e follia a Giugno.',
+    price: 189,
     location: 'Saranda, Albania',
     rating: 4.7,
-    image: '/pack3.jpeg',
-    features: ['Test del sistema di pagamento', 'Solo 1€', 'Nessun servizio reale incluso', 'Solo per test'],
+    image: '/estate-folle-base.jpeg',
+    features: [
+      '4 giorni di Giugno di pura emozione e follia',
+      'Hotel sul mare con festa in piscina da paura',
+      'Feste tutte le sere; incluso boat party con alcohol illimitato',
+      'Accesso VIP a tutti i nostri eventi',
+      'Sconti esclusivi su escursioni, beach club, ristoranti e attività',
+      'Offerta valida per le prime 50 persone!'
+    ],
   },
 ];

@@ -22,8 +22,8 @@ const EstateBaseCard: React.FC<EstateBaseCardProps> = ({ className, onAcquistaCl
             </div>
           </div>
           
-          {/* Spazio vuoto dove c'era il logo */}
-          <div className="w-16 h-16"></div> 
+          {/* Spazio vuoto dove prima c'era il logo */}
+          <div className="w-16 h-16"></div>
         </div>
         
         {/* Titolo principale */}
@@ -42,15 +42,23 @@ const EstateBaseCard: React.FC<EstateBaseCardProps> = ({ className, onAcquistaCl
           </button>
         </div>
         
+        {/* Offerta valida testo */}
+        <div className="text-center mb-3">
+          <p className="font-bold text-base">Offerta valida per le prime 50 persone!</p>
+        </div>
+        
         {/* Lista caratteristiche */}
         <div className="space-y-2 mb-4">
-          <FeatureItem text="Hotel sul mare con pool party da paura" />
+          <FeatureItem text="4 giorni di Giugno di pura emozione e follia" />
+          <FeatureItem text="Hotel sul mare con festa in piscina da paura" />
           <FeatureItem text="Feste tutte le sere; incluso boat party con alcohol illimitato" />
-          <FeatureItem text="4 giorni e 3 notti di Giugno di pura follia" />
-          <FeatureItem text="Sconti esclusivi su escursioni, beach club, ristoranti e attività" />
           <FeatureItem text="Accesso VIP a tutti i nostri eventi" />
-          <FeatureItem text="Offerta valida per le prime 50 persone!" />
-          <FeatureItem text="OPZIONE BUS DALLA TUA CITTA E TRAGHETTO ANDATA E RITORNO AGGIUNGENDO SOLI 200€" smallText />
+          <FeatureItem text="Sconti esclusivi su escursioni, beach club, ristoranti e attività" />
+        </div>
+        
+        {/* Opzione bus - ora in grassetto e senza spunta */}
+        <div className="mb-4 text-center">
+          <p className="font-bold text-sm">OPZIONE BUS DALLA TUA CITTA E TRAGHETTO ANDATA E RITORNO AGGIUNGENDO 200€</p>
         </div>
         
         {/* Footer con prezzo e social */}
