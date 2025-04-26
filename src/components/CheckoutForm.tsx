@@ -23,6 +23,9 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
   const [customerName, setCustomerName] = useState('');
   const { addOrder } = useOrders();
 
+  // Definiamo l'importo fisso della caparra
+  const depositAmount = 100;
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -41,7 +44,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
     setError(null);
 
     try {
-      // 1. Crea un PaymentIntent tramite la funzione Netlify
+      // 1. Crea un PaymentIntent tramite la funzione Netlify con l'importo fisso della caparra
       console.log('Invio richiesta a:', `${API_BASE_URL}/create`);
       
       const response = await fetch(`${API_BASE_URL}/create`, {
@@ -50,8 +53,8 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount,
-          description: packageName,
+          amount: depositAmount, // Invia sempre l'importo della caparra
+          description: `${packageName} (Caparra)`, // Aggiunge "(Caparra)" alla descrizione
           email,
         }),
       });
@@ -66,23 +69,23 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
 
       const { clientSecret, id, isFreeTransaction, status } = await response.json();
 
-      // Gestione speciale per transazioni gratuite (amount = 0)
-      if (isFreeTransaction && status === 'succeeded') {
+      // Gestione speciale per transazioni gratuite (amount = 0) - Manteniamo questa logica se l'importo originale era 0
+      if (amount === 0 && isFreeTransaction && status === 'succeeded') {
         console.log('Transazione gratuita rilevata, salto la conferma del pagamento');
         
-        // Salviamo l'ordine completato
+        // Salviamo l'ordine completato con prezzo 0
         addOrder({
           packageName,
-          price: amount,
+          price: 0, // Registra 0 per pacchetti gratuiti
           customerEmail: email,
           customerPhone,
           customerName,
           status: 'completed'
         });
         
-        // Invia email di conferma
+        // Invia email di conferma per pacchetto gratuito
         try {
-          await sendOrderConfirmationEmail(email, packageName, amount, customerPhone, customerName);
+          await sendOrderConfirmationEmail(email, packageName, 0, customerPhone, customerName);
           console.log('Email di conferma inviata con successo');
         } catch (emailError) {
           console.error('Errore nell\'invio dell\'email di conferma:', emailError);
@@ -90,6 +93,10 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
         
         onSuccess();
         return;
+      } else if (amount > 0 && isFreeTransaction) {
+        // Se l'importo originale era > 0 ma il backend ha restituito isFreeTransaction, c'è un problema
+         console.error('Errore: Ricevuto isFreeTransaction per un pacchetto non gratuito');
+         throw new Error('Errore nella configurazione del pagamento.');
       }
 
       // 2. Conferma il pagamento con Stripe.js (solo per transazioni non gratuite)
@@ -107,34 +114,39 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
       if (confirmError) {
         setError(confirmError.message || 'Si è verificato un errore durante il pagamento');
         
-        // Salviamo l'ordine fallito
+        // Salviamo l'ordine fallito con il prezzo della caparra
         addOrder({
           packageName,
-          price: amount,
+          price: depositAmount, // Registra la caparra
           customerEmail: email,
           customerPhone,
           customerName,
           status: 'failed'
         });
       } else {
-        // Controlla lo stato del pagamento
-        const checkStatus = await fetch(`${API_BASE_URL}/status/${id}`);
-        const { status } = await checkStatus.json();
+        // Controlla lo stato del pagamento (se necessario, a volte confirmCardPayment basta)
+        let finalStatus = paymentIntent?.status;
+        if (finalStatus !== 'succeeded') {
+            // Ricontrolla lo stato tramite l'API se non è già 'succeeded'
+            const checkStatus = await fetch(`${API_BASE_URL}/status/${id}`);
+            const statusResponse = await checkStatus.json();
+            finalStatus = statusResponse.status;
+        }
 
-        if (status === 'succeeded' || paymentIntent?.status === 'succeeded') {
-          // Salviamo l'ordine completato
+        if (finalStatus === 'succeeded') {
+          // Salviamo l'ordine completato con il prezzo della caparra
           addOrder({
             packageName,
-            price: amount,
+            price: depositAmount, // Registra la caparra
             customerEmail: email,
             customerPhone,
             customerName,
             status: 'completed'
           });
           
-          // Invia email di conferma
+          // Invia email di conferma con il prezzo della caparra
           try {
-            await sendOrderConfirmationEmail(email, packageName, amount, customerPhone, customerName);
+            await sendOrderConfirmationEmail(email, `${packageName} (Caparra)`, depositAmount, customerPhone, customerName);
             console.log('Email di conferma inviata con successo');
           } catch (emailError) {
             console.error('Errore nell\'invio dell\'email di conferma:', emailError);
@@ -144,16 +156,19 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
           
           onSuccess();
         } else {
-          // Pagamento in sospeso
+          // Pagamento in sospeso o fallito dopo controllo API
           addOrder({
             packageName,
-            price: amount,
+            price: depositAmount, // Registra la caparra
             customerEmail: email,
             customerPhone,
             customerName,
-            status: 'processing'
+            status: finalStatus === 'processing' ? 'processing' : 'failed'
           });
-          setError('Il pagamento è in elaborazione. Riceverai una conferma via email.');
+          setError(finalStatus === 'processing' 
+            ? 'Il pagamento è in elaborazione. Riceverai una conferma via email.'
+            : 'Il pagamento non è andato a buon fine dopo la verifica.'
+          );
         }
       }
     } catch (err: any) {
@@ -169,10 +184,10 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
       
       setError(errorMessage);
       
-      // Salviamo l'ordine fallito
+      // Salviamo l'ordine fallito con il prezzo della caparra
       addOrder({
         packageName,
-        price: amount,
+        price: depositAmount, // Registra la caparra
         customerEmail: email,
         customerPhone,
         customerName,
@@ -186,7 +201,9 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ amount, packageName, onSucc
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-xl font-bold mb-4 text-center">Checkout - {packageName}</h2>
-      <p className="text-center text-gray-600 mb-6">Totale: €{amount.toFixed(2)}</p>
+      {/* Mostra l'importo della caparra invece del prezzo originale */}
+      <p className="text-center text-gray-600 mb-6 font-medium">Caparra: €{depositAmount.toFixed(2)}</p>
+      <p className="text-center text-xs text-gray-500 mb-6 -mt-4">(Il saldo verrà richiesto successivamente)</p>
       
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
