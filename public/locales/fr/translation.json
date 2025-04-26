@@ -1,0 +1,107 @@
+{
+  "header": {
+    "login": "Connexion",
+    "orders": "Mes commandes",
+    "referral": "Parrainage"
+  },
+  "packages": {
+    "title": "Forfaits d'été",
+    "base": "Base",
+    "premium": "Premium",
+    "folle": "Extrême",
+    "description": "Description",
+    "bookNow": "Réserver maintenant",
+    "included": "Inclus",
+    "details": "Détails",
+    "price": "Prix",
+    "nights": "nuits",
+    "people": "personnes",
+    "noPackages": "Aucun forfait disponible pour le moment."
+  },
+  "checkout": {
+    "title": "Finaliser la commande",
+    "personalInfo": "Informations personnelles",
+    "name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "paymentInfo": "Informations de paiement",
+    "cardNumber": "Numéro de carte",
+    "expiration": "Date d'expiration",
+    "cvc": "CVC",
+    "confirmPayment": "Confirmer le paiement",
+    "cancel": "Annuler",
+    "success": "Paiement effectué avec succès !",
+    "error": "Une erreur s'est produite lors du paiement.",
+    "confirmationEmail": "Merci pour votre achat. Vous recevrez un email de confirmation sous peu."
+  },
+  "footer": {
+    "copyright": "© 2025 BonaEvents. Tous droits réservés.",
+    "terms": "Conditions générales",
+    "privacy": "Politique de confidentialité",
+    "contact": "Contactez-nous",
+    "followInstagram": "Suivez-nous sur Instagram",
+    "description": "Saranda: un petit paradis sur la côte ionienne de l'Albanie, célèbre pour ses eaux cristallines, ses plages dorées et sa proximité avec des sites historiques comme Butrint, patrimoine de l'UNESCO.",
+    "cookies": "Cookies"
+  },
+  "orders": {
+    "title": "Mes commandes",
+    "noOrders": "Vous n'avez pas encore passé de commande.",
+    "orderNumber": "Numéro de commande",
+    "date": "Date",
+    "status": "Statut",
+    "total": "Total",
+    "details": "Détails"
+  },
+  "referral": {
+    "title": "Programme de parrainage",
+    "description": "Invitez vos amis et gagnez !",
+    "yourCode": "Votre code",
+    "share": "Partager",
+    "earnings": "Gains",
+    "history": "Historique"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "retry": "Réessayer",
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "back": "Retour",
+    "next": "Suivant"
+  },
+  "estateBase": {
+    "subtitle": "FÊTE ET MER SANS ARRÊT !",
+    "validOffer": "Offre valable pour les 50 premières personnes !",
+    "feature1": "4 jours en juin d'émotion pure et de folie",
+    "feature2": "Hôtel au bord de la mer avec fête à la piscine incroyable",
+    "feature3": "Fêtes tous les soirs; y compris une fête en bateau avec alcool illimité",
+    "feature4": "Accès VIP à tous nos événements",
+    "feature5": "Réductions exclusives sur les excursions, les clubs de plage, les restaurants et les activités",
+    "busOption": "OPTION BUS DEPUIS VOTRE VILLE ET FERRY ALLER-RETOUR EN AJOUTANT 200€",
+    "justFor": "SEULEMENT"
+  },
+  "estatePremium": {
+    "subtitle": "FÊTE ET MER SANS ARRÊT !",
+    "validOffer": "Offre valable pour les 50 premières personnes !",
+    "feature1": "5 jours en juillet d'émotion pure et de folie",
+    "feature2": "Hôtel au bord de la mer avec fête à la piscine incroyable",
+    "feature3": "Fêtes tous les soirs; y compris une fête en bateau avec alcool illimité",
+    "feature4": "Accès VIP à tous nos événements",
+    "feature5": "Réductions exclusives sur les excursions, les clubs de plage, les restaurants et les activités",
+    "busOption": "OPTION BUS DEPUIS VOTRE VILLE ET FERRY ALLER-RETOUR EN AJOUTANT 200€",
+    "justFor": "SEULEMENT"
+  },
+  "estateFolle": {
+    "subtitle": "FÊTE ET MER SANS ARRÊT !",
+    "validOffer": "Offre valable pour les 50 premières personnes !",
+    "feature1": "5 jours en août d'émotion pure et de folie",
+    "feature2": "Hôtel au bord de la mer avec fête à la piscine incroyable",
+    "feature3": "Fêtes tous les soirs; y compris une fête en bateau avec alcool illimité",
+    "feature4": "Accès VIP à tous nos événements",
+    "feature5": "Réductions exclusives sur les excursions, les clubs de plage, les restaurants et les activités",
+    "busOption": "OPTION BUS DEPUIS VOTRE VILLE ET FERRY ALLER-RETOUR EN AJOUTANT 200€",
+    "justFor": "SEULEMENT"
+  }
+} 

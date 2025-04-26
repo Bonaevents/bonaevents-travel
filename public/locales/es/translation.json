@@ -1,0 +1,69 @@
+{
+  "header": {
+    "login": "Iniciar sesión",
+    "orders": "Mis pedidos",
+    "referral": "Programa de referidos"
+  },
+  "packages": {
+    "title": "Paquetes de verano",
+    "base": "Básico",
+    "premium": "Premium",
+    "folle": "Extremo",
+    "description": "Descripción",
+    "bookNow": "Reservar ahora",
+    "included": "Incluido",
+    "details": "Detalles",
+    "price": "Precio",
+    "nights": "noches",
+    "people": "personas"
+  },
+  "checkout": {
+    "title": "Completar pedido",
+    "personalInfo": "Información personal",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "paymentInfo": "Información de pago",
+    "cardNumber": "Número de tarjeta",
+    "expiration": "Fecha de caducidad",
+    "cvc": "CVC",
+    "confirmPayment": "Confirmar pago",
+    "cancel": "Cancelar",
+    "success": "¡Pago completado con éxito!",
+    "error": "Se ha producido un error durante el pago."
+  },
+  "footer": {
+    "copyright": "© 2025 BonaEvents. Todos los derechos reservados.",
+    "terms": "Términos y condiciones",
+    "privacy": "Política de privacidad",
+    "contact": "Contáctanos"
+  },
+  "orders": {
+    "title": "Mis pedidos",
+    "noOrders": "Aún no has realizado ningún pedido.",
+    "orderNumber": "Número de pedido",
+    "date": "Fecha",
+    "status": "Estado",
+    "total": "Total",
+    "details": "Detalles"
+  },
+  "referral": {
+    "title": "Programa de referidos",
+    "description": "¡Invita a tus amigos y gana!",
+    "yourCode": "Tu código",
+    "share": "Compartir",
+    "earnings": "Ganancias",
+    "history": "Historial"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Se ha producido un error",
+    "retry": "Reintentar",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "back": "Atrás",
+    "next": "Siguiente"
+  }
+} 

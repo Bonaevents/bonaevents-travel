@@ -1,5 +1,6 @@
 import React from 'react';
 import { Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface EstateBaseCardProps {
   className?: string;
@@ -7,6 +8,8 @@ interface EstateBaseCardProps {
 }
 
 const EstateBaseCard: React.FC<EstateBaseCardProps> = ({ className, onAcquistaClick }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className={`relative w-full h-full overflow-hidden rounded-xl bg-white ${className || ''}`} lang="it">
       {/* Sfondo con effetto ondulato */}
@@ -28,8 +31,8 @@ const EstateBaseCard: React.FC<EstateBaseCardProps> = ({ className, onAcquistaCl
         
         {/* Titolo principale */}
         <div className="text-center mb-4">
-          <h1 className="text-4xl sm:text-5xl font-bold text-sky-500 font-script tracking-wide transform -rotate-2">Estate Folle</h1>
-          <p className="text-base sm:text-lg font-bold uppercase tracking-widest mt-1">FESTA E MARE NO STOP!</p>
+          <h1 className="text-4xl sm:text-5xl font-bold text-sky-500 font-script tracking-wide transform -rotate-2">{t('packages.base')}</h1>
+          <p className="text-base sm:text-lg font-bold uppercase tracking-widest mt-1">{t('estateBase.subtitle', 'FESTA E MARE NO STOP!')}</p>
         </div>
         
         {/* Pulsante prenota */}
@@ -38,27 +41,27 @@ const EstateBaseCard: React.FC<EstateBaseCardProps> = ({ className, onAcquistaCl
             className="bg-sky-500 text-white text-base sm:text-lg font-bold py-2 px-6 rounded-full inline-block shadow-lg hover:bg-sky-600 transition-colors"
             onClick={onAcquistaClick}
           >
-            PRENOTA ORA
+            {t('packages.bookNow')}
           </button>
         </div>
         
         {/* Offerta valida testo */}
         <div className="text-center mb-3">
-          <p className="font-bold text-base">Offerta valida per le prime 50 persone!</p>
+          <p className="font-bold text-base">{t('estateBase.validOffer', 'Offerta valida per le prime 50 persone!')}</p>
         </div>
         
         {/* Lista caratteristiche */}
         <div className="space-y-2 mb-4">
-          <FeatureItem text="4 giorni di Giugno di pura emozione e follia" />
-          <FeatureItem text="Hotel sul mare con festa in piscina da paura" />
-          <FeatureItem text="Feste tutte le sere; incluso boat party con alcohol illimitato" />
-          <FeatureItem text="Accesso VIP a tutti i nostri eventi" />
-          <FeatureItem text="Sconti esclusivi su escursioni, beach club, ristoranti e attività" />
+          <FeatureItem text={t('estateBase.feature1', '4 giorni di Giugno di pura emozione e follia')} />
+          <FeatureItem text={t('estateBase.feature2', 'Hotel sul mare con festa in piscina da paura')} />
+          <FeatureItem text={t('estateBase.feature3', 'Feste tutte le sere; incluso boat party con alcohol illimitato')} />
+          <FeatureItem text={t('estateBase.feature4', 'Accesso VIP a tutti i nostri eventi')} />
+          <FeatureItem text={t('estateBase.feature5', 'Sconti esclusivi su escursioni, beach club, ristoranti e attività')} />
         </div>
         
         {/* Opzione bus - ora in grassetto e senza spunta */}
         <div className="mb-4 text-center">
-          <p className="font-bold text-sm">OPZIONE BUS DALLA TUA CITTA E TRAGHETTO ANDATA E RITORNO AGGIUNGENDO 200€</p>
+          <p className="font-bold text-sm">{t('estateBase.busOption', 'OPZIONE BUS DALLA TUA CITTA E TRAGHETTO ANDATA E RITORNO AGGIUNGENDO 200€')}</p>
         </div>
         
         {/* Footer con prezzo e social */}
@@ -85,7 +88,7 @@ const EstateBaseCard: React.FC<EstateBaseCardProps> = ({ className, onAcquistaCl
           
           <div className="bg-sky-500 text-white rounded-full p-3 sm:p-4 shadow-lg transform rotate-3">
             <div className="text-center">
-              <div className="text-xs font-semibold">A SOLI</div>
+              <div className="text-xs font-semibold">{t('estateBase.justFor', 'A SOLI')}</div>
               <div className="text-xl sm:text-3xl font-bold">189€</div>
             </div>
           </div>

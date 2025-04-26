@@ -1,0 +1,107 @@
+{
+  "header": {
+    "login": "Login",
+    "orders": "My Orders",
+    "referral": "Referral"
+  },
+  "packages": {
+    "title": "Summer Packages",
+    "base": "Basic",
+    "premium": "Premium",
+    "folle": "Extreme",
+    "description": "Description",
+    "bookNow": "Book Now",
+    "included": "Included",
+    "details": "Details",
+    "price": "Price",
+    "nights": "nights",
+    "people": "people",
+    "noPackages": "No packages available at the moment."
+  },
+  "checkout": {
+    "title": "Complete your order",
+    "personalInfo": "Personal Information",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "paymentInfo": "Payment Information",
+    "cardNumber": "Card Number",
+    "expiration": "Expiration",
+    "cvc": "CVC",
+    "confirmPayment": "Confirm Payment",
+    "cancel": "Cancel",
+    "success": "Payment completed successfully!",
+    "error": "An error occurred during payment.",
+    "confirmationEmail": "Thank you for your purchase. You will receive a confirmation email shortly."
+  },
+  "footer": {
+    "copyright": "© 2025 BonaEvents. All rights reserved.",
+    "terms": "Terms and Conditions",
+    "privacy": "Privacy Policy",
+    "contact": "Contact Us",
+    "followInstagram": "Follow us on Instagram",
+    "description": "Saranda: a small paradise on the Ionian coast of Albania, famous for its crystal clear waters, golden beaches and proximity to historic sites like Butrint, a UNESCO heritage site.",
+    "cookies": "Cookies"
+  },
+  "orders": {
+    "title": "My Orders",
+    "noOrders": "You haven't placed any orders yet.",
+    "orderNumber": "Order Number",
+    "date": "Date",
+    "status": "Status",
+    "total": "Total",
+    "details": "Details"
+  },
+  "referral": {
+    "title": "Referral Program",
+    "description": "Invite your friends and earn!",
+    "yourCode": "Your Code",
+    "share": "Share",
+    "earnings": "Earnings",
+    "history": "History"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "close": "Close",
+    "save": "Save",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next"
+  },
+  "estateBase": {
+    "subtitle": "PARTY AND SEA NON-STOP!",
+    "validOffer": "Offer valid for the first 50 people!",
+    "feature1": "4 days in June of pure emotion and excitement",
+    "feature2": "Beachfront hotel with amazing pool parties",
+    "feature3": "Parties every night; including boat party with unlimited alcohol",
+    "feature4": "VIP access to all our events",
+    "feature5": "Exclusive discounts on excursions, beach clubs, restaurants and activities",
+    "busOption": "BUS OPTION FROM YOUR CITY AND FERRY ROUND TRIP ADDING €200",
+    "justFor": "ONLY"
+  },
+  "estatePremium": {
+    "subtitle": "PARTY AND SEA NON-STOP!",
+    "validOffer": "Offer valid for the first 50 people!",
+    "feature1": "5 days in July of pure emotion and excitement",
+    "feature2": "Beachfront hotel with amazing pool parties",
+    "feature3": "Parties every night; including boat party with unlimited alcohol",
+    "feature4": "VIP access to all our events",
+    "feature5": "Exclusive discounts on excursions, beach clubs, restaurants and activities",
+    "busOption": "BUS OPTION FROM YOUR CITY AND FERRY ROUND TRIP ADDING €200",
+    "justFor": "ONLY"
+  },
+  "estateFolle": {
+    "subtitle": "PARTY AND SEA NON-STOP!",
+    "validOffer": "Offer valid for the first 50 people!",
+    "feature1": "5 days in August of pure emotion and excitement",
+    "feature2": "Beachfront hotel with amazing pool parties",
+    "feature3": "Parties every night; including boat party with unlimited alcohol",
+    "feature4": "VIP access to all our events",
+    "feature5": "Exclusive discounts on excursions, beach clubs, restaurants and activities",
+    "busOption": "BUS OPTION FROM YOUR CITY AND FERRY ROUND TRIP ADDING €200",
+    "justFor": "ONLY"
+  }
+} 

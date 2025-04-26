@@ -1,0 +1,107 @@
+{
+  "header": {
+    "login": "Hyr",
+    "orders": "Porositë e mia",
+    "referral": "Referimi"
+  },
+  "packages": {
+    "title": "Paketat Verore",
+    "base": "Bazë",
+    "premium": "Premium",
+    "folle": "Ekstrem",
+    "description": "Përshkrimi",
+    "bookNow": "Rezervo tani",
+    "included": "Përfshirë",
+    "details": "Detajet",
+    "price": "Çmimi",
+    "nights": "netë",
+    "people": "persona",
+    "noPackages": "Asnjë paketë nuk është e disponueshme për momentin."
+  },
+  "checkout": {
+    "title": "Përfundo porosinë",
+    "personalInfo": "Informacione personale",
+    "name": "Emri",
+    "email": "Email",
+    "phone": "Telefoni",
+    "paymentInfo": "Informacione pagese",
+    "cardNumber": "Numri i kartës",
+    "expiration": "Data e skadimit",
+    "cvc": "CVC",
+    "confirmPayment": "Konfirmo pagesën",
+    "cancel": "Anulo",
+    "success": "Pagesa u krye me sukses!",
+    "error": "Ndodhi një gabim gjatë pagesës.",
+    "confirmationEmail": "Faleminderit për blerjen tuaj. Do të merrni një email konfirmimi së shpejti."
+  },
+  "footer": {
+    "copyright": "© 2025 BonaEvents. Të gjitha të drejtat e rezervuara.",
+    "terms": "Kushtet dhe afatet",
+    "privacy": "Politika e privatësisë",
+    "contact": "Na kontaktoni",
+    "followInstagram": "Na ndiqni në Instagram",
+    "description": "Saranda: një parajsë e vogël në bregdetin Joniko të Shqipërisë, e njohur për ujërat e saj të kristalta, plazhet me rërë të artë dhe afërsinë me vendet historike si Butrinti, një trashëgimi e UNESCO-s.",
+    "cookies": "Cookies"
+  },
+  "orders": {
+    "title": "Porositë e mia",
+    "noOrders": "Nuk ke bërë ende asnjë porosi.",
+    "orderNumber": "Numri i porosisë",
+    "date": "Data",
+    "status": "Statusi",
+    "total": "Totali",
+    "details": "Detajet"
+  },
+  "referral": {
+    "title": "Programi i Referimit",
+    "description": "Fto miqtë e tu dhe fito!",
+    "yourCode": "Kodi yt",
+    "share": "Ndaj",
+    "earnings": "Fitimet",
+    "history": "Historiku"
+  },
+  "common": {
+    "loading": "Duke ngarkuar...",
+    "error": "Ndodhi një gabim",
+    "retry": "Provo përsëri",
+    "close": "Mbyll",
+    "save": "Ruaj",
+    "confirm": "Konfirmo",
+    "cancel": "Anulo",
+    "back": "Kthehu",
+    "next": "Tjetër"
+  },
+  "estateBase": {
+    "subtitle": "FESTA DHE DETI PA NDALIM!",
+    "validOffer": "Oferta e vlefshme për 50 personat e parë!",
+    "feature1": "4 ditë në Qershor me emocion dhe argëtim të plotë",
+    "feature2": "Hotel buzë detit me festa në pishinë të mahnitshme",
+    "feature3": "Festa çdo natë; përfshirë festë në varkë me alkool pa limit",
+    "feature4": "Akses VIP në të gjitha ngjarjet tona",
+    "feature5": "Ulje ekskluzive në ekskursione, klube plazhi, restorante dhe aktivitete",
+    "busOption": "OPSIONI I AUTOBUSIT NGA QYTETI JUAJ DHE TRAGET VAJTJE-ARDHJE DUKE SHTUAR 200€",
+    "justFor": "VETËM"
+  },
+  "estatePremium": {
+    "subtitle": "FESTA DHE DETI PA NDALIM!",
+    "validOffer": "Oferta e vlefshme për 50 personat e parë!",
+    "feature1": "5 ditë në Korrik me emocion dhe argëtim të plotë",
+    "feature2": "Hotel buzë detit me festa në pishinë të mahnitshme",
+    "feature3": "Festa çdo natë; përfshirë festë në varkë me alkool pa limit",
+    "feature4": "Akses VIP në të gjitha ngjarjet tona",
+    "feature5": "Ulje ekskluzive në ekskursione, klube plazhi, restorante dhe aktivitete",
+    "busOption": "OPSIONI I AUTOBUSIT NGA QYTETI JUAJ DHE TRAGET VAJTJE-ARDHJE DUKE SHTUAR 200€",
+    "justFor": "VETËM"
+  },
+  "estateFolle": {
+    "subtitle": "FESTA DHE DETI PA NDALIM!",
+    "validOffer": "Oferta e vlefshme për 50 personat e parë!",
+    "feature1": "5 ditë në Gusht me emocion dhe argëtim të plotë",
+    "feature2": "Hotel buzë detit me festa në pishinë të mahnitshme",
+    "feature3": "Festa çdo natë; përfshirë festë në varkë me alkool pa limit",
+    "feature4": "Akses VIP në të gjitha ngjarjet tona",
+    "feature5": "Ulje ekskluzive në ekskursione, klube plazhi, restorante dhe aktivitete",
+    "busOption": "OPSIONI I AUTOBUSIT NGA QYTETI JUAJ DHE TRAGET VAJTJE-ARDHJE DUKE SHTUAR 200€",
+    "justFor": "VETËM"
+  }
+} 

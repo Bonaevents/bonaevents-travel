@@ -1,14 +1,17 @@
 import React from 'react';
 import PackageCard from './PackageCard';
 import { TravelPackage } from '../types';
+import { useTranslation } from 'react-i18next';
 
 interface PackageListProps {
   packages: TravelPackage[];
 }
 
 const PackageList: React.FC<PackageListProps> = ({ packages }) => {
+  const { t } = useTranslation();
+  
   if (!packages || packages.length === 0) {
-    return <div className="text-center my-10">Nessun pacchetto disponibile al momento.</div>;
+    return <div className="text-center my-10">{t('packages.noPackages', 'Nessun pacchetto disponibile al momento.')}</div>;
   }
 
   return (
@@ -16,7 +19,7 @@ const PackageList: React.FC<PackageListProps> = ({ packages }) => {
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto max-w-screen-xl">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Pacchetti Vacanza a Saranda
+            {t('packages.title')}
           </h2>
           <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
             Esplora la nostra selezione di pacchetti esclusivi per vivere una vacanza 

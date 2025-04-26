@@ -59,49 +59,42 @@ export const getCurrentLanguage = (): string => {
   }
 };
 
-// Funzione per tradurre la pagina in sicurezza - Semplificata
+// Funzione per tradurre la pagina - Ripristinato approccio con reload
 export const translatePage = (langCode: string): void => {
   try {
     const currentLang = getCurrentLanguage();
-    
-    // Evita ricaricamenti inutili se la lingua è già quella selezionata
+
     if (langCode === currentLang) {
       console.log('Lingua già impostata a', langCode);
       return;
     }
 
-    // Salva la preferenza di lingua (utile se l'utente torna)
     localStorage.setItem('preferredLanguage', langCode);
 
-    // Imposta o cancella il cookie di traduzione
     if (langCode === 'it') {
-      // Cancella i cookie per tornare all'italiano
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + document.domain;
     } else {
-      // Imposta il cookie per la nuova lingua
       document.cookie = `googtrans=/it/${langCode}; path=/;`;
       document.cookie = `googtrans=/it/${langCode}; path=/; domain=.${document.domain};`;
     }
 
-    // Forza il ricaricamento della pagina per applicare la traduzione tramite cookie
-    // Questo è il metodo più affidabile in produzione con Google Translate
+    // Forza il ricaricamento per applicare il cookie
     window.location.reload();
 
   } catch (error) {
-    console.error('Errore nella traduzione:', error);
-    // Non è più necessario gestire isTranslating qui
+    console.error('Errore nella funzione translatePage:', error);
   }
 };
 
 // Funzione per impostare manualmente la lingua, usata dal componente LanguageSwitcher
 export const setLanguage = async (langCode: string): Promise<boolean> => {
   try {
-    // Usa la funzione sicura per la traduzione
+    // Non è più necessario attendere waitForGoogleTranslate qui
     translatePage(langCode);
     return true;
   } catch (error) {
-    console.error('Errore nel cambio lingua:', error);
+    console.error('Errore nel cambio lingua (setLanguage):', error);
     return false;
   }
 }; 

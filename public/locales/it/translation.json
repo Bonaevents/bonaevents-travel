@@ -1,0 +1,107 @@
+{
+  "header": {
+    "login": "Accedi",
+    "orders": "I miei ordini",
+    "referral": "Referral"
+  },
+  "packages": {
+    "title": "Pacchetti Estate",
+    "base": "Base",
+    "premium": "Premium",
+    "folle": "Folle",
+    "description": "Descrizione",
+    "bookNow": "Prenota ora",
+    "included": "Incluso",
+    "details": "Dettagli",
+    "price": "Prezzo",
+    "nights": "notti",
+    "people": "persone",
+    "noPackages": "Nessun pacchetto disponibile al momento."
+  },
+  "checkout": {
+    "title": "Completa l'ordine",
+    "personalInfo": "Informazioni personali",
+    "name": "Nome",
+    "email": "Email",
+    "phone": "Telefono",
+    "paymentInfo": "Informazioni pagamento",
+    "cardNumber": "Numero carta",
+    "expiration": "Scadenza",
+    "cvc": "CVC",
+    "confirmPayment": "Conferma pagamento",
+    "cancel": "Annulla",
+    "success": "Pagamento completato con successo!",
+    "error": "Si è verificato un errore durante il pagamento.",
+    "confirmationEmail": "Grazie per il tuo acquisto. Riceverai una email di conferma a breve."
+  },
+  "footer": {
+    "copyright": "© 2025 BonaEvents. Tutti i diritti riservati.",
+    "terms": "Termini e condizioni",
+    "privacy": "Privacy Policy",
+    "contact": "Contattaci",
+    "followInstagram": "Seguici su Instagram",
+    "description": "Saranda: un piccolo paradiso sulla costa ionica dell'Albania, famosa per le sue acque cristalline, spiagge dorate e la vicinanza a siti storici come Butrinto, patrimonio UNESCO.",
+    "cookies": "Cookie"
+  },
+  "orders": {
+    "title": "I miei ordini",
+    "noOrders": "Non hai ancora effettuato ordini.",
+    "orderNumber": "Numero ordine",
+    "date": "Data",
+    "status": "Stato",
+    "total": "Totale",
+    "details": "Dettagli"
+  },
+  "referral": {
+    "title": "Programma Referral",
+    "description": "Invita i tuoi amici e guadagna!",
+    "yourCode": "Il tuo codice",
+    "share": "Condividi",
+    "earnings": "Guadagni",
+    "history": "Storico"
+  },
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Si è verificato un errore",
+    "retry": "Riprova",
+    "close": "Chiudi",
+    "save": "Salva",
+    "confirm": "Conferma",
+    "cancel": "Annulla",
+    "back": "Indietro",
+    "next": "Avanti"
+  },
+  "estateBase": {
+    "subtitle": "FESTA E MARE NO STOP!",
+    "validOffer": "Offerta valida per le prime 50 persone!",
+    "feature1": "4 giorni di Giugno di pura emozione e follia",
+    "feature2": "Hotel sul mare con festa in piscina da paura",
+    "feature3": "Feste tutte le sere; incluso boat party con alcohol illimitato",
+    "feature4": "Accesso VIP a tutti i nostri eventi",
+    "feature5": "Sconti esclusivi su escursioni, beach club, ristoranti e attività",
+    "busOption": "OPZIONE BUS DALLA TUA CITTA E TRAGHETTO ANDATA E RITORNO AGGIUNGENDO 200€",
+    "justFor": "A SOLI"
+  },
+  "estatePremium": {
+    "subtitle": "FESTA E MARE NO STOP!",
+    "validOffer": "Offerta valida per le prime 50 persone!",
+    "feature1": "5 giorni di Luglio di pura emozione e follia",
+    "feature2": "Hotel sul mare con festa in piscina da paura",
+    "feature3": "Feste tutte le sere; incluso boat party con alcohol illimitato",
+    "feature4": "Accesso VIP a tutti i nostri eventi",
+    "feature5": "Sconti esclusivi su escursioni, beach club, ristoranti e attività",
+    "busOption": "OPZIONE BUS DALLA TUA CITTA E TRAGHETTO ANDATA E RITORNO AGGIUNGENDO 200€",
+    "justFor": "A SOLI"
+  },
+  "estateFolle": {
+    "subtitle": "FESTA E MARE NO STOP!",
+    "validOffer": "Offerta valida per le prime 50 persone!",
+    "feature1": "5 giorni di Agosto di pura emozione e follia",
+    "feature2": "Hotel sul mare con festa in piscina da paura",
+    "feature3": "Feste tutte le sere; incluso boat party con alcohol illimitato",
+    "feature4": "Accesso VIP a tutti i nostri eventi",
+    "feature5": "Sconti esclusivi su escursioni, beach club, ristoranti e attività",
+    "busOption": "OPZIONE BUS DALLA TUA CITTA E TRAGHETTO ANDATA E RITORNO AGGIUNGENDO 200€",
+    "justFor": "A SOLI"
+  }
+} 

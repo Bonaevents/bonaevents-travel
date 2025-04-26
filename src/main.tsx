@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
+import './i18n';  // Importo la configurazione di i18next
 
 // Aggiungiamo un handler per gli errori non catturati
 window.addEventListener('error', function(event) {

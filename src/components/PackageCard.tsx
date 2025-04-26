@@ -7,6 +7,7 @@ import EstateFolleCard from './EstateFolleCard';
 import EstatePremiumCard from './EstatePremiumCard';
 import EstateBaseCard from './EstateBaseCard';
 import CheckoutModal from './CheckoutModal';
+import { useTranslation } from 'react-i18next';
 
 interface PackageCardProps {
   packageData: TravelPackage;
@@ -14,6 +15,7 @@ interface PackageCardProps {
 }
 
 const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => {
+  const { t } = useTranslation();
   const { id, name, location, image, price } = packageData;
   const [showThankYou, setShowThankYou] = useState(false);
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
@@ -62,38 +64,38 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => 
         ) : (
           // Renderizza il design standard per gli altri pacchetti
           <>
-      {/* Card Image */}
+            {/* Card Image */}
             <div className="relative overflow-hidden">
-        <img
-          src={image}
-          alt={name}
+              <img
+                src={image}
+                alt={name}
                 className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
-        />
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 opacity-80"></div>
+              />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 opacity-80"></div>
               {/* Location Tag - Moved to right */}
               <div className="absolute bottom-4 right-4 flex items-center text-white">
-          <span className="text-sm font-medium">{location}</span>
+                <span className="text-sm font-medium">{location}</span>
                 <MapPin className="w-4 h-4 ml-1" />
-        </div>
-      </div>
+              </div>
+            </div>
 
-      {/* Card Content */}
-      <div className="p-6">
+            {/* Card Content */}
+            <div className="p-6">
               <h3 className="text-xl font-bold text-gray-800 group-hover:text-teal-600 transition-colors duration-300 mb-4 text-center">
-            {name}
-          </h3>
+                {name}
+              </h3>
               
               {/* CTA Button */}
               <div className="mt-6 flex justify-center">
                 <Button variant="primary" onClick={handleOpenCheckout}>
-                  Acquista ora
+                  {t('packages.bookNow')}
                 </Button>
               </div>
             </div>
           </>
         )}
-        </div>
+      </div>
         
       {/* Modal di pagamento con Stripe */}
       <CheckoutModal
@@ -110,8 +112,8 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => 
               <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-        </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Grazie per il tuo acquisto!</h2>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('checkout.success')}</h2>
             <p className="text-gray-600 mb-4">
               Ti abbiamo inviato un'email con i dettagli del tuo pacchetto.
             </p>
@@ -119,7 +121,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => 
               onClick={() => setShowThankYou(false)}
               className="bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 transition-colors"
             >
-              Chiudi
+              {t('common.close')}
             </button>
           </div>
         </div>

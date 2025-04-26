@@ -3,6 +3,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { stripePromise } from '../libs/stripe';
 import CheckoutForm from './CheckoutForm';
 import { X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface CheckoutModalProps {
 }
 
 const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, packageData }) => {
+  const { t } = useTranslation();
   const [paymentComplete, setPaymentComplete] = React.useState(false);
 
   const handlePaymentSuccess = () => {
@@ -51,9 +53,9 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, packageD
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Pagamento completato!</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('checkout.success')}</h2>
             <p className="text-gray-600">
-              Grazie per il tuo acquisto. Riceverai una email di conferma a breve.
+              {t('checkout.confirmationEmail', 'Grazie per il tuo acquisto. Riceverai una email di conferma a breve.')}
             </p>
           </div>
         ) : (

@@ -1,0 +1,69 @@
+{
+  "header": {
+    "login": "Anmelden",
+    "orders": "Meine Bestellungen",
+    "referral": "Empfehlungsprogramm"
+  },
+  "packages": {
+    "title": "Sommerpakete",
+    "base": "Basis",
+    "premium": "Premium",
+    "folle": "Extrem",
+    "description": "Beschreibung",
+    "bookNow": "Jetzt buchen",
+    "included": "Inbegriffen",
+    "details": "Details",
+    "price": "Preis",
+    "nights": "Nächte",
+    "people": "Personen"
+  },
+  "checkout": {
+    "title": "Bestellung abschließen",
+    "personalInfo": "Persönliche Informationen",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "paymentInfo": "Zahlungsinformationen",
+    "cardNumber": "Kartennummer",
+    "expiration": "Ablaufdatum",
+    "cvc": "CVC",
+    "confirmPayment": "Zahlung bestätigen",
+    "cancel": "Abbrechen",
+    "success": "Zahlung erfolgreich abgeschlossen!",
+    "error": "Bei der Zahlung ist ein Fehler aufgetreten."
+  },
+  "footer": {
+    "copyright": "© 2025 BonaEvents. Alle Rechte vorbehalten.",
+    "terms": "Allgemeine Geschäftsbedingungen",
+    "privacy": "Datenschutzrichtlinie",
+    "contact": "Kontakt"
+  },
+  "orders": {
+    "title": "Meine Bestellungen",
+    "noOrders": "Sie haben noch keine Bestellungen aufgegeben.",
+    "orderNumber": "Bestellnummer",
+    "date": "Datum",
+    "status": "Status",
+    "total": "Gesamtbetrag",
+    "details": "Details"
+  },
+  "referral": {
+    "title": "Empfehlungsprogramm",
+    "description": "Laden Sie Ihre Freunde ein und verdienen Sie!",
+    "yourCode": "Ihr Code",
+    "share": "Teilen",
+    "earnings": "Verdienste",
+    "history": "Historie"
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Ein Fehler ist aufgetreten",
+    "retry": "Wiederholen",
+    "close": "Schließen",
+    "save": "Speichern",
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen",
+    "back": "Zurück",
+    "next": "Weiter"
+  }
+} 
