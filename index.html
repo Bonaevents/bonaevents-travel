@@ -5,7 +5,6 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="BonaEvents - Esplora pacchetti vacanza esclusivi a Saranda, Albania" />
-    <meta name="google" content="notranslate" id="notranslate" />
     <meta name="google-translate-customization" content="3f88d5cbb415eb3d-facda5f7c9105964-gf46e39e7c22b2ea6-10" />
     <title>BonaEvents - Pacchetti Vacanza a Saranda</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,9 +36,40 @@
         font-family: 'Kaushan Script', cursive;
       }
     </style>
+    
+    <!-- Script per attivare la traduzione via URL (usando il parametro #googtrans nell'URL) -->
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'it',
+          includedLanguages: 'it,en,sq,fr,de,es', // Includi tutte le lingue supportate
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+      
+      // Verifica se c'è un parametro di lingua nell'URL
+      window.addEventListener('DOMContentLoaded', function() {
+        try {
+          const hash = window.location.hash;
+          if (hash.startsWith('#googtrans(')) {
+            console.log('Rilevato parametro di traduzione:', hash);
+            const script = document.createElement('script');
+            script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            script.async = true;
+            document.head.appendChild(script);
+          }
+        } catch (error) {
+          console.error('Errore nell\'inizializzazione di Google Translate:', error);
+        }
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    
+    <!-- Elemento nascosto per Google Translate -->
+    <div id="google_translate_element" style="display: none;"></div>
     
     <!-- Script per il debug di Firebase (solo per sviluppo) -->
     <script>

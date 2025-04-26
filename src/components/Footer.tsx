@@ -1,6 +1,5 @@
 import React from 'react';
 import { Mail, Instagram } from 'lucide-react';
-import LanguageSwitcher from './LanguageSwitcher';
 
 const Footer: React.FC = () => {
   return (
@@ -52,13 +51,6 @@ const Footer: React.FC = () => {
                 </a>
               </li>
             </ul>
-          </div>
-        </div>
-        
-        {/* Language Switcher - posizionato in fondo */}
-        <div className="mt-6 pt-4 flex justify-center">
-          <div className="bg-white bg-opacity-10 rounded-lg px-4 py-2">
-            <LanguageSwitcher />
           </div>
         </div>
       </div>

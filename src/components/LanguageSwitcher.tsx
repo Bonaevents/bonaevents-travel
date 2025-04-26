@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Globe } from 'lucide-react';
+import { setLanguage, getCurrentLanguage } from '../utils/translateHelper';
 
 // Array delle lingue supportate
 const languages = [
   { code: 'it', name: 'Italiano' },
   { code: 'en', name: 'English' },
+  { code: 'sq', name: 'Shqip' },   // Albanese
   { code: 'fr', name: 'Français' },
   { code: 'de', name: 'Deutsch' },
   { code: 'es', name: 'Español' }
@@ -17,84 +19,70 @@ interface CustomWindow extends Window {
 }
 
 const LanguageSwitcher: React.FC = () => {
-  useEffect(() => {
-    // Cast window all'interfaccia estesa
-    const customWindow = window as CustomWindow;
-
-    // Inizializza Google Translate
-    const addScript = () => {
-      const script = document.createElement('script');
-      script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      script.async = true;
-      document.body.appendChild(script);
+  // Recupera la lingua preferita
+  const [currentLang, setCurrentLang] = useState(getCurrentLanguage());
+  const [hasError, setHasError] = useState(false);
+  
+  // Funzione per cambiare la lingua
+  const changeLanguage = (langCode: string) => {
+    try {
+      setCurrentLang(langCode);
       
-      // Funzione callback per inizializzare il widget
-      customWindow.googleTranslateElementInit = () => {
-        if (customWindow.google && customWindow.google.translate) {
-          new customWindow.google.translate.TranslateElement(
-            {
-              pageLanguage: 'it',
-              includedLanguages: languages.map(lang => lang.code).join(','),
-              layout: customWindow.google.translate.TranslateElement.InlineLayout.SIMPLE,
-              autoDisplay: false
-            },
-            'google_translate_element'
-          );
-        }
-      };
-    };
-
-    // Aggiungi lo script solo se non è già stato aggiunto
-    if (!document.querySelector('script[src*="translate.google.com"]')) {
-      addScript();
+      // Usa la funzione di traduzione sicura che non causa ricaricamenti infiniti
+      setLanguage(langCode);
+    } catch (error) {
+      console.error('Errore nel cambio lingua:', error);
+      setHasError(true);
     }
-
-    return () => {
-      // Cleanup
-      if (customWindow.googleTranslateElementInit) {
-        delete customWindow.googleTranslateElementInit;
-      }
-    };
-  }, []);
-
-  // Aggiungi CSS per lo styling
+  };
+  
+  // Inizializza la traduzione quando il componente viene montato
   useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-      /* Nascondi alcuni elementi non necessari */
-      .goog-te-banner-frame,
-      .goog-te-menu-value span:nth-child(3),
-      .goog-te-menu-value span:nth-child(4),
-      .goog-te-menu-value span:nth-child(5) {
-        display: none !important;
+    try {
+      // Verifica se dobbiamo applicare una traduzione all'avvio
+      const savedLang = getCurrentLanguage();
+      if (savedLang !== 'it') {
+        // Applica la traduzione salvata solo all'avvio, con un leggero ritardo
+        const timer = setTimeout(() => {
+          setLanguage(savedLang);
+        }, 1500);
+        
+        return () => clearTimeout(timer);
       }
-      
-      /* Stile del selettore */
-      .goog-te-menu-value {
-        color: #4B5563 !important;
-        text-decoration: none !important;
-        font-family: 'Inter', sans-serif !important;
-        font-size: 0.9rem !important;
-        display: flex !important;
-        align-items: center !important;
-      }
-      
-      /* Riduci la dimensione del contenitore */
-      #google_translate_element {
-        min-width: 120px;
-      }
-    `;
-    document.head.appendChild(style);
-    
-    return () => {
-      document.head.removeChild(style);
-    };
+    } catch (error) {
+      console.error('Errore durante l\'inizializzazione della traduzione:', error);
+    }
   }, []);
+  
+  // Se c'è un errore, mostra un selettore finto che non fa nulla
+  if (hasError) {
+    return (
+      <div className="flex items-center">
+        <Globe size={18} className="text-gray-600 mr-2" />
+        <select className="bg-transparent border-none text-gray-600 text-sm pr-4 focus:outline-none cursor-pointer">
+          <option>Italiano</option>
+        </select>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center">
       <Globe size={18} className="text-gray-600 mr-2" />
-      <div id="google_translate_element"></div>
+      
+      {/* Nostro selettore personalizzato */}
+      <select 
+        className="bg-transparent border-none text-gray-600 text-sm pr-4 focus:outline-none cursor-pointer"
+        value={currentLang}
+        onChange={(e) => changeLanguage(e.target.value)}
+        title="Seleziona lingua"
+      >
+        {languages.map((lang) => (
+          <option key={lang.code} value={lang.code}>
+            {lang.name}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };
