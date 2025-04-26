@@ -10,9 +10,6 @@ declare global {
   }
 }
 
-// Flag per prevenire cicli di ricaricamento
-let isTranslating = false;
-
 // Funzione per verificare quando Google Translate è caricato e pronto
 export const waitForGoogleTranslate = (maxAttempts = 40): Promise<boolean> => {
   return new Promise((resolve) => {
@@ -62,92 +59,38 @@ export const getCurrentLanguage = (): string => {
   }
 };
 
-// Funzione per tradurre la pagina in sicurezza senza causare ricaricamenti infiniti
+// Funzione per tradurre la pagina in sicurezza - Semplificata
 export const translatePage = (langCode: string): void => {
   try {
+    const currentLang = getCurrentLanguage();
+    
     // Evita ricaricamenti inutili se la lingua è già quella selezionata
-    if (langCode === getCurrentLanguage()) {
+    if (langCode === currentLang) {
       console.log('Lingua già impostata a', langCode);
       return;
     }
-    
-    // Controlla il flag per prevenire cicli
-    if (isTranslating) {
-      console.warn('Traduzione già in corso, evito ciclo di ricaricamento');
-      return;
-    }
-    
-    // Attiva il flag di protezione
-    isTranslating = true;
-    
-    // Salva la preferenza di lingua
+
+    // Salva la preferenza di lingua (utile se l'utente torna)
     localStorage.setItem('preferredLanguage', langCode);
-    
-    // Usa metodo con cookie (funziona con o senza ricaricamento)
+
+    // Imposta o cancella il cookie di traduzione
     if (langCode === 'it') {
-      // Cancella i cookie di traduzione di Google per tornare alla lingua originale
+      // Cancella i cookie per tornare all'italiano
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + document.domain;
     } else {
-      // Imposta il cookie di traduzione (questo sarà usato da Google Translate)
+      // Imposta il cookie per la nuova lingua
       document.cookie = `googtrans=/it/${langCode}; path=/;`;
       document.cookie = `googtrans=/it/${langCode}; path=/; domain=.${document.domain};`;
     }
-    
-    // Controlla se Google Translate è già caricato
-    if (window.google && window.google.translate) {
-      // Se già caricato, aggiorna la traduzione
-      const element = document.getElementById('google_translate_element');
-      if (element) {
-        try {
-          element.innerHTML = '';
-          // Correzione errore linter: verifica che window.google e window.google.translate siano definiti
-          if (window.google && window.google.translate && window.google.translate.TranslateElement) {
-            new window.google.translate.TranslateElement({
-              pageLanguage: 'it',
-              includedLanguages: 'it,en,sq,fr,de,es',
-              layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-              autoDisplay: false
-            }, 'google_translate_element');
-          }
-        } catch (e) {
-          console.error('Errore nel reinizializzare il widget:', e);
-        }
-      }
-    } else {
-      // Carica Google Translate se non è già presente
-      if (!document.querySelector('script[src*="translate.google.com"]')) {
-        const script = document.createElement('script');
-        script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-        script.async = true;
-        document.head.appendChild(script);
-        
-        // Definisci la funzione di inizializzazione
-        window.googleTranslateElementInit = function() {
-          try {
-            // Correzione errore linter: verifica che window.google e window.google.translate siano definiti
-            if (window.google && window.google.translate && window.google.translate.TranslateElement) {
-              new window.google.translate.TranslateElement({
-                pageLanguage: 'it',
-                includedLanguages: 'it,en,sq,fr,de,es',
-                layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-              }, 'google_translate_element');
-            }
-          } catch (e) {
-            console.error('Errore nell\'inizializzazione del widget:', e);
-          }
-        };
-      }
-    }
-    
-    // Rimuovi il flag dopo 5 secondi per consentire altre traduzioni
-    setTimeout(() => {
-      isTranslating = false;
-    }, 5000);
+
+    // Forza il ricaricamento della pagina per applicare la traduzione tramite cookie
+    // Questo è il metodo più affidabile in produzione con Google Translate
+    window.location.reload();
+
   } catch (error) {
     console.error('Errore nella traduzione:', error);
-    isTranslating = false;
+    // Non è più necessario gestire isTranslating qui
   }
 };
 

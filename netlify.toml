@@ -54,4 +54,5 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' translate.google.com translate.googleapis.com *.stripe.com; style-src 'self' 'unsafe-inline' translate.googleapis.com fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: translate.google.com translate.googleapis.com; connect-src 'self' translate.googleapis.com *.firebaseio.com firestore.googleapis.com *.googleapis.com *.stripe.com api.stripe.com; frame-src translate.google.com *.stripe.com" 
+    # Aggiornata per essere più permissiva con Google Translate e prevenire problemi comuni
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' translate.google.com *.google.com *.googleapis.com *.gstatic.com *.stripe.com; style-src 'self' 'unsafe-inline' translate.googleapis.com fonts.googleapis.com *.google.com; font-src 'self' fonts.gstatic.com *.gstatic.com; img-src 'self' data: translate.google.com translate.googleapis.com *.google.com *.gstatic.com; connect-src 'self' translate.googleapis.com *.firebaseio.com firestore.googleapis.com *.googleapis.com *.stripe.com api.stripe.com www.google-analytics.com; frame-src 'self' translate.google.com *.google.com *.stripe.com; object-src 'none';" 
