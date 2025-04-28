@@ -41,12 +41,13 @@ export interface Order {
   id?: string;
   packageName: string;
   price: number;
+  customerName: string;
   customerEmail: string;
-  customerPhone?: string;
-  customerName?: string;
-  status: 'completed' | 'processing' | 'failed';
-  date: Timestamp | Date;
+  customerPhone: string;
+  date: Date;
+  status: 'completed' | 'failed' | 'processing';
   referralCode?: string;
+  quantity?: number;
 }
 
 export interface Referral {

@@ -4,6 +4,7 @@ import { stripePromise } from '../libs/stripe';
 import CheckoutForm from './CheckoutForm';
 import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useCart } from '../contexts/CartContext';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -12,14 +13,22 @@ interface CheckoutModalProps {
     name: string;
     price: number;
   };
+  isMultiPackage?: boolean;
 }
 
-const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, packageData }) => {
+const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, packageData, isMultiPackage = false }) => {
   const { t } = useTranslation();
+  const { clearCart } = useCart();
   const [paymentComplete, setPaymentComplete] = React.useState(false);
 
   const handlePaymentSuccess = () => {
     setPaymentComplete(true);
+    
+    // Se è un acquisto multiplo, svuota il carrello dopo il pagamento
+    if (isMultiPackage) {
+      clearCart();
+    }
+    
     setTimeout(() => {
       onClose();
       // Resettiamo lo stato per la prossima apertura
@@ -65,6 +74,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, packageD
               packageName={packageData.name}
               onSuccess={handlePaymentSuccess}
               onCancel={onClose}
+              isMultiPackage={isMultiPackage}
             />
           </Elements>
         )}

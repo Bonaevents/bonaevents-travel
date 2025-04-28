@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { MapPin, X } from 'lucide-react';
+import { MapPin, X, ShoppingCart } from 'lucide-react';
 import Button from './Button';
 import { TravelPackage } from '../types';
 import { useOrders } from '../contexts/OrderContext';
+import { useCart } from '../contexts/CartContext';
 import EstateFolleCard from './EstateFolleCard';
 import EstatePremiumCard from './EstatePremiumCard';
 import EstateBaseCard from './EstateBaseCard';
@@ -19,11 +20,24 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => 
   const { id, name, location, image, price } = packageData;
   const [showThankYou, setShowThankYou] = useState(false);
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const { addToCart } = useCart();
 
   // Verifica quale tipo di pacchetto è
   const isEstateFollePackage = id === 'estate-folle';
   const isEstatePremiumPackage = id === '2'; // Pacchetto Premium a 280€
   const isEstateBasePackage = id === '3'; // Pacchetto Base a 189€
+
+  const handleAddToCart = () => {
+    addToCart(packageData);
+    
+    // Mostra notifica
+    setShowThankYou(true);
+    
+    // Nascondi il messaggio dopo 2 secondi
+    setTimeout(() => {
+      setShowThankYou(false);
+    }, 2000);
+  };
 
   const handleOpenCheckout = () => {
     setShowCheckoutModal(true);
@@ -43,23 +57,35 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => 
     }, 3000);
   };
 
+  // Definiamo i componenti per i pulsanti
+  const ActionButton = () => (
+    <Button 
+      variant="primary" 
+      onClick={handleAddToCart}
+      className="flex items-center space-x-2"
+    >
+      <ShoppingCart size={16} />
+      <span>{t('packages.addToCart', 'Aggiungi al Carrello')}</span>
+    </Button>
+  );
+
   return (
     <>
       <div className={`group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 ${className || ''}`}>
         {isEstateFollePackage ? (
           // Renderizza il design "Estate Folle" a 330€
           <div className="h-full">
-            <EstateFolleCard onAcquistaClick={handleOpenCheckout} />
+            <EstateFolleCard onAcquistaClick={handleAddToCart} />
           </div>
         ) : isEstatePremiumPackage ? (
           // Renderizza il design "Estate Premium" a 280€
           <div className="h-full">
-            <EstatePremiumCard onAcquistaClick={handleOpenCheckout} />
+            <EstatePremiumCard onAcquistaClick={handleAddToCart} />
           </div>
         ) : isEstateBasePackage ? (
           // Renderizza il design "Estate Base" a 189€
           <div className="h-full">
-            <EstateBaseCard onAcquistaClick={handleOpenCheckout} />
+            <EstateBaseCard onAcquistaClick={handleAddToCart} />
           </div>
         ) : (
           // Renderizza il design standard per gli altri pacchetti
@@ -88,9 +114,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => 
               
               {/* CTA Button */}
               <div className="mt-6 flex justify-center">
-                <Button variant="primary" onClick={handleOpenCheckout}>
-                  {t('packages.bookNow')}
-                </Button>
+                <ActionButton />
               </div>
             </div>
           </>
@@ -109,13 +133,11 @@ const PackageCard: React.FC<PackageCardProps> = ({ packageData, className }) => 
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg shadow-xl p-8 max-w-md text-center">
             <div className="w-16 h-16 rounded-full bg-green-100 mx-auto flex items-center justify-center mb-4">
-              <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+              <ShoppingCart className="w-8 h-8 text-green-500" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('checkout.success')}</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('cart.addedToCart', 'Aggiunto al Carrello!')}</h2>
             <p className="text-gray-600 mb-4">
-              Ti abbiamo inviato un'email con i dettagli del tuo pacchetto.
+              {t('cart.continueOrCheckout', 'Puoi continuare a navigare o procedere al checkout.')}
             </p>
             <button 
               onClick={() => setShowThankYou(false)}

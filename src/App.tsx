@@ -6,6 +6,7 @@ import { travelPackages } from './constants/data';
 import Orders from './pages/Orders';
 import ReferralManager from './pages/ReferralManager';
 import { OrderProvider } from './contexts/OrderContext';
+import { CartProvider } from './contexts/CartContext';
 import { validateReferralCode } from './services/firebase';
 
 function App() {
@@ -67,19 +68,21 @@ function App() {
 
   return (
     <OrderProvider>
-      {currentPath === '/ordini' ? (
-        <Orders />
-      ) : currentPath === '/referral' ? (
-        <ReferralManager />
-      ) : (
-        <div className="font-['Inter',sans-serif] antialiased">
-          <Header />
-          <main>
-            <PackageList packages={travelPackages} />
-          </main>
-          <Footer />
-        </div>
-      )}
+      <CartProvider>
+        {currentPath === '/ordini' ? (
+          <Orders />
+        ) : currentPath === '/referral' ? (
+          <ReferralManager />
+        ) : (
+          <div className="font-['Inter',sans-serif] antialiased">
+            <Header />
+            <main>
+              <PackageList packages={travelPackages} />
+            </main>
+            <Footer />
+          </div>
+        )}
+      </CartProvider>
     </OrderProvider>
   );
 }
