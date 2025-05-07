@@ -5,6 +5,7 @@ import Header from './components/Header';
 import { travelPackages } from './constants/data';
 import Orders from './pages/Orders';
 import ReferralManager from './pages/ReferralManager';
+import PromoterDashboard from './pages/PromoterDashboard';
 import { OrderProvider } from './contexts/OrderContext';
 import { CartProvider } from './contexts/CartContext';
 import { validateReferralCode } from './services/firebase';
@@ -73,6 +74,8 @@ function App() {
           <Orders />
         ) : currentPath === '/referral' ? (
           <ReferralManager />
+        ) : currentPath === '/mistake-dashboard' ? (
+          <PromoterDashboard />
         ) : (
           <div className="font-['Inter',sans-serif] antialiased">
             <Header />

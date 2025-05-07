@@ -32,9 +32,10 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
   const { addOrder } = useOrders();
   const { cartItems } = useCart();
 
-  // Per acquisti multipli, utilizziamo l'importo che ci è stato passato
-  // Per acquisti singoli, usiamo la caparra fissa
   const depositAmount = isMultiPackage ? amount : 100;
+  const feePercentage = 0.016; // 1.6%
+  const serviceFee = parseFloat((depositAmount * feePercentage).toFixed(2));
+  const finalAmountToCharge = parseFloat((depositAmount + serviceFee).toFixed(2));
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -63,7 +64,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: depositAmount,
+          amount: finalAmountToCharge,
           description: isMultiPackage 
             ? `${packageName} (Caparra multipla)` 
             : `${packageName} (Caparra)`,
@@ -337,32 +338,43 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
           />
         </div>
         
+        <div className="mb-4 p-3 bg-yellow-100 border border-yellow-400 rounded-md text-sm text-yellow-800">
+          <p className="font-semibold">
+            Nota importante sulle commissioni:
+          </p>
+          <ul className="list-disc list-inside mt-1 space-y-1">
+            <li>Caparra base: <strong>{depositAmount.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}</strong></li>
+            <li>Commissione di servizio (1.6% sulla caparra): <strong>{serviceFee.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}</strong></li>
+            <li className="font-bold">Importo totale da pagare: <strong>{finalAmountToCharge.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}</strong></li>
+          </ul>
+        </div>
+
         <div>
-          <label htmlFor="card" className="block text-sm font-medium text-gray-700 mb-1">Dati carta</label>
-          <div className="p-3 border border-gray-300 rounded-md focus-within:ring-teal-500 focus-within:border-teal-500">
-            <CardElement
-              id="card"
-              options={{
-                style: {
-                  base: {
-                    fontSize: '16px',
-                    color: '#424770',
-                    '::placeholder': {
-                      color: '#aab7c4',
-                    },
-                  },
-                  invalid: {
-                    color: '#9e2146',
+          <label htmlFor="card-element" className="block text-sm font-medium text-gray-700 mb-1">
+            Dati della Carta
+          </label>
+          <CardElement
+            id="card-element"
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  color: '#424770',
+                  '::placeholder': {
+                    color: '#aab7c4',
                   },
                 },
-              }}
-            />
-          </div>
+                invalid: {
+                  color: '#9e2146',
+                },
+              },
+            }}
+          />
         </div>
       </div>
       
       {error && (
-        <div className="text-red-500 text-sm mt-2">
+        <div className="mt-4 text-sm text-red-600 bg-red-100 p-3 rounded-md">
           {error}
         </div>
       )}
